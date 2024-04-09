@@ -2,7 +2,7 @@
 
 namespace src\Controllers;
 
-use App\Models\UserModel;
+use src\Models\UserModel;
 use src\models\Database;
 use src\Services\Reponse;
 
@@ -70,4 +70,41 @@ class AuthController
     {
         // Code pour gérer la récupération de mot de passe oublié
     }
+    public function registration(){
+        $this->render("register");
+    }
+    public function register(){
+        $db = new Database();
+        $pdo = $db->getDB();
+        $userModel = new UserModel($pdo);
+        $user = $userModel->createUser($_POST);
+        if($user){
+            header("Location: /login");
+        }
+    }
+  public function confirmEmail($token){
+    $db = new Database();
+    $pdo = $db->getDB();
+    $userModel = new UserModel($pdo);
+    $user = $userModel->getUserByToken($token);
+    if($user){
+      $userModel->confirmEmail($user['id']);
+      header("Location: /login");
+    }
+  }
+
+  public function confirmView(){
+    $this->render("confirmRegistration");
+  }
+  public function confirmRegistration(){
+    $db = new Database();
+    $pdo = $db->getDB();
+    $userModel = new UserModel($pdo);
+    $user = $userModel->createUser($_POST);
+    if($user){
+      header("Location: /login");
+    }
+  }
+  
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace src\Models;
 
 use PDO;
 
@@ -11,6 +11,13 @@ class UserModel
     public function __construct(PDO $db)
     {
         $this->db = $db;
+    }
+    public function createUser($data)
+    {
+        $query = "INSERT INTO users (email, password) VALUES (:email, :password)";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute($data);
+        return $this->db->lastInsertId();
     }
 
     public function getUserByEmail($email)
@@ -32,4 +39,16 @@ class UserModel
     {
         // Code pour supprimer un utilisateur
     }
+    public function getUserByToken(){
+        $query = "SELECT * FROM users WHERE token = :token";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['token' => $_SESSION['token']]);
+        return $stmt->fetch();
+    }
+    public function confirmEmail($token){
+        $query = "UPDATE users SET is_verified = 1 WHERE token = :token";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['token' => $token]);
+    }
 }
+

@@ -36,12 +36,41 @@ switch ($route) {
                 $authController->login();
             } else {
                 // Afficher le formulaire de connexion
+                $authController->index();
             }
         }
         break;
 
     case '/logout':
         $authController->logout();
+        break;
+
+    case '/registration':
+        if (isset($_SESSION['connected'])) {
+            header('Location: /dashboard');
+            exit;
+        } else {
+            if ($method === 'POST') {
+                $authController->register();
+            } else {
+                // Afficher le formulaire de connexion
+                $authController->registration();
+            }
+        }
+        break;
+
+    case '/cregistration':
+        if (isset($_SESSION['connected'])) {
+            header('Location: /dashboard');
+            exit;
+        } else {
+            if ($method === 'POST') {
+                $authController->confirmregistration();
+            } else {
+                // Afficher le formulaire de connexion
+                $authController->confirmView();
+            }
+        }
         break;
 
     case '/addUser':
