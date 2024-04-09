@@ -99,6 +99,18 @@ switch ($route) {
         }
         break;
 
+        case '/testhome':
+            if (isset($_SESSION['connected'])) {
+                header('Location: /dashboard');
+                exit;
+            } else {
+                if ($method === 'POST') {
+                    $authController->login();
+                } else {
+                    $authController->home();
+                }
+            }
+            break;
     // Ajouter d'autres routes selon vos besoins
 
     default:

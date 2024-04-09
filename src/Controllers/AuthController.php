@@ -21,6 +21,11 @@ class AuthController
 
     $this->render("login", ["erreur"=> $erreur]);
   }
+
+  public function home(): void
+  {
+    $this->render("home");
+  }
     public function login()
     {
 
