@@ -1,0 +1,21 @@
+# Nous allons rediriger toutes les urls qui iraient ailleurs que dans le dossier public vers le dossier public.
+
+# 1. Vérifier si le module de réécriture d'apache est activé.
+
+<IfModule mod_rewrite.c>
+# Si c'est le cas, l'allumer :
+rewriteEngine on
+
+# Exercice 1: Chercher à rediriger une connexion sur config.php vers index.php
+# mot clés : rewriteCond, rewriteRule
+# RewriteCond %{REQUEST_URI} config*(.*) [NC]
+# RewriteRule (.*?)config*(.*) /public/ [R=301,NE,L]
+
+# Exercice 2: Rediriger toute url qui contient src vers la racine du site, pour que index.php prenne la place.
+# RewriteCond %{REQUEST_URI} src*(.*) [NC]
+# RewriteRule (.*?)src*(.*) /public/ [R=301,NE,L]
+
+# Exercice 3: Rediriger toutes les urls qui iraient ailleurs que dans le dossier public vers le dossier public :
+  rewriteCond %{THE_REQUEST} !^GET.*/public [NC]
+  rewriteRule ^(.*)$ /public/$1 [R=301,NE,L]
+</IfModule>
