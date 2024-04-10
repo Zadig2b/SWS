@@ -10,6 +10,33 @@
 
 }
 
+#gridDelay {
+    margin: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#delayCreationForm {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: rgb(241, 241, 241);   
+    font-weight: bold;
+}
+
+#course-card {
+    padding: 50px;
+    background-color: rgb(241, 241, 241);   
+}
+
+#delaySubmit {
+    position: absolute;
+    right: 0;
+    margin-right: 50px;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -23,10 +50,69 @@ body {
     height: 100vh;
 }
 
-.btn {
-    /* width: 100px; */
-}
+
 
 h1 {
     margin-bottom: 30px;
+}
+
+#myTab {
+    margin-top: 50px;
+    
+}
+
+#myTabContent {
+    margin-top: 20px;
+   
+}
+#myTab, #myTabContent {
+    margin: 30px;
+}
+
+#header-delay-grid {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#underline {
+    height: 2px;
+    background-color: black;
+}
+
+#spH {
+    display: flex;
+    flex-direction: row;
+}
+#btn-delay {
+    position: absolute;
+    right: 0;
+    margin-right: 30px;
+}
+
+.section {
+    margin: 50px;
+    position: relative;
+}
+
+#course-section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+#div-btn {
+    align-items: end;
+    justify-content: end;
+      
+}
+
+#first-line {
+display: flex;   
+flex-direction: row; 
+
+}
+
+#sign-status {
+
+
 }
