@@ -112,6 +112,13 @@ switch ($route) {
             }
             break;
     // Ajouter d'autres routes selon vos besoins
+    case "/simplon":
+        if ($method == 'GET') {
+            $authController->home();
+        } else if ($method == 'POST') {
+            $authController->createUserFromInput();
+        }
+        break;
 
     default:
         // Afficher une page 404 si l'URL demandée n'existe pas

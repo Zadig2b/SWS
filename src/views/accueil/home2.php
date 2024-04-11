@@ -40,7 +40,7 @@ include_once('main.php')
 
 
 
-<!-------------------------------------- second panel HEADER ------------------------------------------>
+<!-------------------------------------- second panel ------------------------------------------>
 <div class="tab-pane fade" id="promo-tab-pane" role="tabpanel" aria-labelledby="promo-tab" tabindex="0">
 <div id="promo-section" class="section">
   <div id="spH">
@@ -48,11 +48,16 @@ include_once('main.php')
         <h2>Promotion DWWM3</h2>
         <p>Informations</p>
         
-<!------------------------------ NESTED PANEL -------------------------------------->
-<?php
-include_once(__DIR__ . '/../promos/nestedTab.php');
-?>
-<!------------------------------ FIN DU NESTED PANEL -------------------------------------->
+<!------------------------------ PANEL -------------------------------------->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="student-tab" data-bs-toggle="tab" data-bs-target="#student-tab-pane" type="button" role="tab" aria-controls="student-tab-pane" aria-selected="true">Tableau apprenants</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="delays-tab" data-bs-toggle="tab" data-bs-target="#delays-tab-pane" type="button" role="tab" aria-controls="delays-tab-pane" aria-selected="false">Retards</button>
+  </li>
+</ul>
+<!------------------------------ FIN DU PANEL -------------------------------------->
 
 <p>tableau des Apprenants</p>
     </div>
@@ -88,6 +93,7 @@ include_once(__DIR__ . '/../promos/nestedTab.php');
           Rôle
         </div>
       </div>
+      <!-- <div id="underline"></div> -->
     </div>
     <div id="underline"></div>
     <div class="container text-center" id="delay-grid">
@@ -187,14 +193,9 @@ include_once(__DIR__ . '/../promos/nestedTab.php');
         <p>Informations</p>
         
 <!------------------------------ PANEL -------------------------------------->
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="student-tab" data-bs-toggle="tab" data-bs-target="#student-tab-pane" type="button" role="tab" aria-controls="student-tab-pane" aria-selected="false" tabindex="-1">Apprenants</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="delays-tab" data-bs-toggle="tab" data-bs-target="#delays-tab-pane" type="button" role="tab" aria-controls="delays-tab-pane" aria-selected="true">Retards</button>
-  </li>
-</ul>
+<?php
+include_once('./../nestedTab.php')
+?>
 <!------------------------------ FIN DU PANEL -------------------------------------->
 
 <p>tableau des retards</p>
