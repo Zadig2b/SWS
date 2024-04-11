@@ -116,3 +116,19 @@ flex-direction: row;
 
 
 }
+
+#edit-delay-section {
+    display: none;
+}
+
+#create-delay-section {
+    display: none;
+}
+
+#edit-delay-btn {
+    border: none;
+}
+
+#underline {
+    margin-bottom: 10px;
+}

@@ -12,9 +12,6 @@
 </head>
 <body>
 
-<?php
-include 'includes/header.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +20,7 @@ include 'includes/header.php';
   <title>Document</title>
 </head>
 <body>
+  <!--------------------------- PREMIER PANEL -------------------------------------->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Accueil</button>
@@ -34,6 +32,7 @@ include 'includes/header.php';
     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Utilisateurs</button>
   </li>
 </ul>
+  <!--------------------------- FIN PREMIER PANEL -------------------------------------->
 
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -71,10 +70,22 @@ include 'includes/header.php';
   <div id="spH">
     <div id="promoHeader">
         <h2>Promotion DWWM3</h2>
+        <p>Informations</p>
+<!------------------------------ PANEL -------------------------------------->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Tableau apprenants</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Retards</button>
+  </li>
+</ul>
+<!------------------------------ FIN DU PANEL -------------------------------------->
+
         <p>tableau des retards</p>
     </div>
     <div id="btn-delay">
-      <button type="button" class="btn btn-success">Ajouter un retard</button>  
+      <button type="button" class="btn btn-success" id="add-delay-btn">Ajouter un retard</button>  
     </div>
   </div>
   
@@ -133,6 +144,9 @@ include 'includes/header.php';
       <div class="col">
         Rôle
       </div>
+      <div class="col">
+      <button type="button" class="btn btn-outline-dark" id="edit-delay-btn">edit</button>
+      </div>
     </div>
     </div>
     </div>
@@ -158,6 +172,7 @@ include 'includes/header.php';
         <label for="delayDateInput" class="form-label">Date du retard</label>
         <input type="date" class="form-control" id="delayDateInput">
       </div>
+      <button type="button" class="btn btn-primary" id="retour-btn-delay-submit">Retour</button>
       <button type="submit" class="btn btn-primary" id="delaySubmit">Sauvegarder</button>
     </form>
   </div>
@@ -189,7 +204,7 @@ include 'includes/header.php';
     </form>
   </div>
 </div>
-
+<script src="<?= HOME_URL ?>assets/js/script.js"></script>
 </body>
 </html>
 

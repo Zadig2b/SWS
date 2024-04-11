@@ -18,13 +18,16 @@ class AuthController
       $erreur = '';
 
     }
+    $this->render("includes.header", ["erreur"=> $erreur]);
 
-    $this->render("login", ["erreur"=> $erreur]);
+    $this->render("auth.login", ["erreur"=> $erreur]);
   }
 
   public function home(): void
   {
-    $this->render("home");
+    $this->render("includes.header");
+
+    $this->render("accueil.home");
   }
     public function login()
     {

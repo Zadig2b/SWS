@@ -23,7 +23,7 @@
 
         <form> -->
 <?php
-include 'includes/header.php';
+// include '..includes/header.php';
 ?>
 <div id=form-container>
 <div id=form>
