@@ -1,29 +1,6 @@
-<div class="tab-pane fade" id="student-tab-pane" role="tabpanel" aria-labelledby="student-tab" tabindex="0">
-<div id="student-section" class="section">
-  <div id="spH">
-    <div id="promoHeader">
-        <h2>Promotion DWWM3</h2>
-        <p>Informations</p>
-        
-<!------------------------------ PANEL -------------------------------------->
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="student-tab" data-bs-toggle="tab" data-bs-target="#student-tab-pane" type="button" role="tab" aria-controls="student-tab-pane" aria-selected="true">Tableau apprenants</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="delays-tab" data-bs-toggle="tab" data-bs-target="#delays-tab-pane" type="button" role="tab" aria-controls="delays-tab-pane" aria-selected="false">Retards</button>
-  </li>
-</ul>
-<!------------------------------ FIN DU PANEL -------------------------------------->
 
-<p>tableau des Apprenants</p>
-    </div>
-    <div id="btn-student">
-      <button type="button" class="btn btn-success" id="add-student-btn">Ajouter un Apprenant</button>  
-    </div>
-  </div>
-  
-  <div id="gridDelay">
+
+  <div id="grid-student">
       <div class="container text-center" id="header-delay-grid">
       <div class="row">
       <div class="col">
@@ -50,7 +27,6 @@
           Rôle
         </div>
       </div>
-      <!-- <div id="underline"></div> -->
     </div>
     <div id="underline"></div>
     <div class="container text-center" id="delay-grid">
@@ -87,55 +63,4 @@
 </div>
 
 
-<!-------------------------------- delayCreationForm ----------------------------------------->
 
-<div id="create-delay-section" class="section">
-  <h2>Création d'un retard</h2>
-  <div id="delayCreationForm">
-      <form>
-      <div class="mb-3">
-        <p>Apprenant concerné</p>
-        <select class="form-select" aria-label="Default select example">
-    <option selected>Open this select menu</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-  </select>
-      </div>
-      <div class="mb-3">
-        <label for="delayDateInput" class="form-label">Date du retard</label>
-        <input type="date" class="form-control" id="delayDateInput">
-      </div>
-      <button type="button" class="btn btn-primary" id="retour-btn-delay-submit">Retour</button>
-      <button type="submit" class="btn btn-primary" id="delaySubmit">Sauvegarder</button>
-    </form>
-  </div>
-</div>
-
-<!------------------------------ édition du retard ---------------------------------->
-<div id="edit-delay-section" class="section">
-  <h2>Edition du retard de $name</h2>
-  <p>les changements appliqués sont définitifs</p>
-  <div id="delayCreationForm">
-      <form>
-      <div class="mb-3">
-        <p>Apprenant concerné</p>
-        <select class="form-select" aria-label="Default select example">
-    <option selected>Open this select menu</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-  </select>
-      </div>
-      <div class="mb-3">
-        <label for="delayDateInput" class="form-label">Date du retard</label>
-        <input type="date" class="form-control" id="delayDateInput">
-      </div>
-<div id="div-btn">
-        <button type="button" class="btn btn-danger" id="delay-delete-btn">Danger</button>
-        <button type="submit" class="btn btn-primary" id="delaySubmit">Sauvegarder</button>
-</div>
-    </form>
-  </div>
-</div>
-</div>

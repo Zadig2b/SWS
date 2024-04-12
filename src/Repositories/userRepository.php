@@ -33,22 +33,20 @@ class UserRepository {
     public function validateCredentials($email, $password)
 {
     try {
-        $query = "SELECT * FROM vercors_user WHERE email = :email"; // Fetch all columns
+        $query = "SELECT * FROM utilisateur WHERE email = :email"; 
         $stmt = $this->db->prepare($query);
         $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch the user data from the database
+        $user = $stmt->fetch(PDO::FETCH_ASSOC); 
 
         if ($user && password_verify($password, $user['password'])) {
             // Password correct, return the user object
             $userObject = new User(
-                $user['name'],
-                $user['surname'],
-                $user['phone'],
-                $user['address'],
+                $user['nom'],
+                $user['prénom'],
                 $user['email'],
                 $user['password'],
-                isset($user['role']) ? $user['role'] : 'user', // Ensure role exists or default to 'user'
-                $user['RGPD']
+                isset($user['actif']) ? $user['actif'] : '0', 
+                isset($user['role']) ? $user['role'] : 'user', 
             );
             $userObject->setId($user['Id_User']); // Set the ID of the user
             return $userObject;

@@ -6,6 +6,8 @@ use src\Models\UserModel;
 use src\models\Database;
 use src\Services\Reponse;
 use src\Models\User;
+use src\Repositories\CourseRepository;
+use src\Repositories\CoursesRepository;
 use src\Repositories\UserRepository;
 
 class AuthController
@@ -17,7 +19,6 @@ class AuthController
       $erreur = htmlspecialchars($_GET['erreur']);
     } else {
       $erreur = '';
-
     }
     $this->render("includes.header", ["erreur"=> $erreur]);
 
@@ -26,10 +27,18 @@ class AuthController
 
   public function home(): void
   {
+
     $this->render("includes.header");
 
     $this->render("accueil.home");
+
   }
+  public function fetchCourse(){
+      $coursesRepository= new CoursesRepository();
+      $courses= $coursesRepository->getCourses();
+        echo json_encode($courses);
+    }  
+  
     public function login()
     {
 
@@ -46,7 +55,7 @@ class AuthController
         $password = $_POST['password'];
 
         // Instanciez le modèle d'utilisateur
-        $userModel = new UserModel($pdo);
+        $userModel = new User();
 
         // Appelez la méthode pour vérifier les informations d'identification de l'utilisateur
         $user = $userModel->getUserByEmail($email);
@@ -60,13 +69,13 @@ class AuthController
             $_SESSION['role'] = $user['role']; // Vous pouvez stocker le rôle de l'utilisateur dans la session
 
             // Rediriger l'utilisateur vers la page de tableau de bord ou une autre page appropriée
-            // header('Location: /dashboard');
-            // exit;
+            header('Location: /dashboard');
+            exit;
         } else {
             // Authentification échouée
             // Rediriger l'utilisateur vers la page de connexion avec un message d'erreur
-            // header('Location: /login?error=invalid_credentials');
-            // exit;
+            header('Location: /login?error=invalid_credentials');
+            exit;
         }
     }
 

@@ -26,12 +26,15 @@
     font-weight: bold;
 }
 
-#course-card {
+.course-card {
     padding: 50px;
-    background-color: rgb(241, 241, 241);   
+    background-color: rgb(241, 241, 241);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    position: relative;   
 }
 
-#delaySubmit {
+#delaySubmit, #studentSubmit {
     position: absolute;
     right: 0;
     margin-right: 50px;
@@ -83,7 +86,7 @@ h1 {
     display: flex;
     flex-direction: row;
 }
-#btn-delay {
+#btn-delay, #btn-student {
     position: absolute;
     right: 0;
     margin-right: 30px;
@@ -94,7 +97,13 @@ h1 {
     position: relative;
 }
 
-#course-section {
+.sub-card {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    position: relative;   
+}
+
+.course-section {
     margin-top: 50px;
     margin-bottom: 50px;
     position: relative;
@@ -121,11 +130,11 @@ flex-direction: row;
     display: none;
 }
 
-#create-delay-section {
+#create-delay-section, #create-student-section {
     display: none;
 }
 
-#edit-delay-btn {
+#edit-delay-btn, #edit-student-section {
     border: none;
 }
 

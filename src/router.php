@@ -111,8 +111,11 @@ switch ($route) {
                 }
             }
             break;
-    // Ajouter d'autres routes selon vos besoins
-    case "/simplon":
+        case '/testhome/fetchcourse':
+            $authController->fetchCourse();
+            break;
+
+            case "/simplon":
         if ($method == 'GET') {
             $authController->home();
         } else if ($method == 'POST') {

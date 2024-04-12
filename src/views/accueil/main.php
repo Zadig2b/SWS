@@ -24,3 +24,4 @@
  
 </div>
 </div>
+<script src="<?= HOME_URL ?>assets/js/courses.js"></script>
