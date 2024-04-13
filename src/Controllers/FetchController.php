@@ -27,25 +27,27 @@ class SimplonController
                 $name = htmlspecialchars($decodedRequest->name);
                 $surname = htmlspecialchars($decodedRequest->surname);
                 $email = htmlspecialchars($decodedRequest->email);
-                $password = htmlspecialchars($decodedRequest->password);
 
                             //Initialiser la base de données
             $database = new Database();
             $db = $database->getDB();
-            $user = new User($name, $surname, $email, $password);
-            $user->setName($name);
-            $user->setSurname($surname);
+            $user = new User($name, $surname, $email);
+            $user->setNom($name);
+            $user->setPrénom($surname);
             $user->setEmail($email);
 
             // Initialize UserRepository
             $userRepository = new UserRepository($db);
                 $userRepository = new UserRepository($db);
-                $userRepository->createUser($user);
+                $userRepository->formateurCreateUser($user);
 
                 include_once __DIR__ . '/../Views/accueil/home.php';
             }
         }
     }
+
+
+
     public function login()
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password']) && isset($_POST['email'])) {
@@ -63,7 +65,7 @@ class SimplonController
             //Mot de passe correct, marque l'utilisateur comme connecté
             $_SESSION['connected'] = true;
             $_SESSION['userId'] = $user->getId(); 
-            $_SESSION['name'] = $user->getName(); 
+            $_SESSION['name'] = $user->getNom(); 
             
 
             

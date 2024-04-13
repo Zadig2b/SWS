@@ -4,25 +4,21 @@ namespace src\Models;
 
 class User {
     private $id;
-    private $name;
-    private $surname;
-    private $phone;
-    private $address;
+    private $nom;
+    private $prénom;
     private $email;
     private $password;
     private $role;
-    private $RGPD;
+    private $actif;
 
-    // Constructor
-    public function __construct($name, $surname, $email, $password) {
-        $this->name = $name;
-        $this->surname = $surname;
+    // Constructor for the first step of user creation process
+    public function __construct($nom, $prénom, $email) {
+        $this->nom = $nom;
+        $this->prénom = $prénom;
         $this->email = $email;
-        $this->password = $password;
-        // $this->role = $role;
     }
 
-    // Getters
+    // Getters and setters
     public function getId() {
         return $this->id;
     }
@@ -30,33 +26,27 @@ class User {
     public function setId($id) {
         $this->id = $id;
     }
-    
-    public function getName() {
-        return $this->name;
+
+    public function getNom() {
+        return $this->nom;
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function setNom($nom) {
+        $this->nom = $nom;
     }
 
-    public function getSurname() {
-        return $this->surname;
-    }
-    public function setSurname($surname) {
-        $this->surname = $surname;
+    public function getPrénom() {
+        return $this->prénom;
     }
 
-    public function getPhone() {
-        return $this->phone;
-    }
-
-    public function getAddress() {
-        return $this->address;
+    public function setPrénom($prénom) {
+        $this->prénom = $prénom;
     }
 
     public function getEmail() {
         return $this->email;
     }
+
     public function setEmail($email) {
         $this->email = $email;
     }
@@ -65,14 +55,25 @@ class User {
         return $this->password;
     }
 
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
     public function getRole() {
         return $this->role;
     }
 
-    public function getRGPD() {
-        return $this->RGPD;
+    public function setRole($role) {
+        $this->role = $role;
     }
-    
+
+    public function getActif() {
+        return $this->actif;
+    }
+
+    public function setActif($actif) {
+        $this->actif = $actif;
+    }
 }
 
 ?>

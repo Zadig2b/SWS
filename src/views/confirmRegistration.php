@@ -11,36 +11,25 @@
     <title>Login</title>
 </head>
 <body>
-    <!-- <h1>Bienvenue</h1>
-    <form method="POST" action="login.php">
-        <label for="username">Email*</label>
-        <input type="text" id="username" name="username">
-        <br>
-        <label for="password">Mot de passe*</label>
-        <input type="password" id="password" name="password">
-        <br>
-        <input type="submit" value="Login">
-
-        <form> -->
 <?php
 include 'includes/header.php';
 ?>
-<div id=form-container>
-<div id=form>
-<h1>Bienvenue</h1>
-<p>Pour clôturer votre inscription et créer votre compte, veuillez choisir un mot de passe.</p>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Mot de passe*</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text"></div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Confirmez mot de passe*</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <button type="submit" class="btn btn-primary">Sauvegarder</button>
-</form>
+<div id="form-container">
+    <div id="form">
+        <h1>Bienvenue</h1>
+        <p>Pour clôturer votre inscription et créer votre compte, veuillez choisir un mot de passe.</p>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe*</label>
+            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp">
+            <div id="passwordHelp" class="form-text"></div>
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirmez mot de passe*</label>
+            <input type="password" class="form-control" id="confirmPassword">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="submitRegistration()">Sauvegarder</button>
+    </div>
 </div>
-</div>
+<script src="<?= HOME_URL ?>assets/js/user.js"></script>
 </body>
 </html>

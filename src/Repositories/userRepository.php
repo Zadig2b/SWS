@@ -14,10 +14,10 @@ class UserRepository {
         $this->db = $db;
     }
 
-    public function createUser(User $user) {
-    $query = "INSERT INTO vercors_user (name, surname, phone, address, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+    public function formateurCreateUser(User $user) {
+    $query = "INSERT INTO utilisateur (nom, prénom, email) VALUES (?, ?, ?)";
     $stmt = $this->db->prepare($query);
-    $stmt->execute([$user->getName(), $user->getSurname(), $user->getPhone(), $user->getAddress(), $user->getEmail(), $user->getPassword()]);
+    $stmt->execute([$user->getNom(), $user->getPrénom(),  $user->getEmail()]);
     $userId = $this->db->lastInsertId(); //Obtenez l'ID du dernier utilisateur inséréséréséré
     return $userId; //Renvoyer l'ID utilisateur
 }
@@ -69,6 +69,21 @@ public function confirmEmail($token){
     $stmt->execute(['token' => $token]);
 }
 
+public function updateUserAfterRegistration(User $user, string $hashedPassword)
+{
+    try {
+        // Update the user's profile in the database with hashed password and set actif to 1
+        $query = "UPDATE utilisateur SET password = :password, actif = 1 WHERE Id_utilisateur = :userId";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':userId', $user->getId());
+        $stmt->execute();
+    } catch (PDOException $e) {
+        // Handle any database errors here
+        // For example:
+        echo "Error updating user: " . $e->getMessage();
+    }
+}
 
 
 }

@@ -72,7 +72,7 @@ h1 {
     margin: 30px;
 }
 
-#header-delay-grid {
+#header-delay-grid, #header-student-grid {
     margin-bottom: 5px;
     font-weight: bold;
 }
