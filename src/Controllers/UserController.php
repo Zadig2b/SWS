@@ -33,26 +33,37 @@ class UserController
                 $userRepository = new UserRepository($db);
     
                 // Call the method to create the user
-                $userRepository->formateurCreateUser($user);
+                $userId = $userRepository->formateurCreateUser($user);
     
-                // Send email to the designated email
-                $to = $email;
-                $subject = 'Registration Confirmation';
-                $message = 'Hello ' . $name . ', Your account has been successfully created. Please proceed with the registration process.';
-                $headers = 'From: your_email@example.com';
+                if ($userId) {
+                    // Generate token from user ID
+                    $token = password_hash($userId, PASSWORD_DEFAULT);
     
-                // Send email
-                $mailSent = mail($to, $subject, $message, $headers);
+                    // Include token in the email link
+                    $confirmationLink = "http://yourwebsite.com/cregistration?token=" . urlencode($token);
     
-                // Check if email was sent successfully
-                if ($mailSent) {
-                    echo "User created successfully. Confirmation email sent.";
+                    // Send email to the designated email
+                    $to = $email;
+                    $subject = 'Registration Confirmation';
+                    $message = 'Hello ' . $name . ', Your account has been successfully created. Please proceed with the registration process by clicking on the following link: ' . $confirmationLink;
+                    $headers = 'From: your_email@example.com';
+    
+                    // Send email
+                    $mailSent = mail($to, $subject, $message, $headers);
+    
+                    // Check if email was sent successfully
+                    if ($mailSent) {
+                        echo "User created successfully. Confirmation email sent.";
+                    } else {
+                        echo "User created successfully, but there was an error sending the confirmation email.";
+                    }
                 } else {
-                    echo "User created successfully, but there was an error sending the confirmation email.";
+                    echo "Error creating user.";
                 }
             }
         }
     }
+    
 
     public function confirmRegistration()
     {
@@ -100,6 +111,33 @@ class UserController
     public function logout(){
         session_destroy();
         header('Location: /login');
+    }
+
+    public function processToken($token)
+    {
+        // Retrieve the user ID from the hashed token
+        $userId = password_hash($token, PASSWORD_DEFAULT);
+        // Initialize the database
+        $database = new Database();
+        $db = $database->getDB();
+
+        // Initialize UserRepository
+        $userRepository = new UserRepository($db);
+
+        // Check if user ID is found
+        if ($userId) {
+            // Retrieve user by user ID
+            $user = $userRepository->getUserById($userId);
+
+            // Redirect to registration confirmation page
+            header('Location: /cregistration');
+            exit;
+        } else {
+            // Handle case where token is invalid or user not found
+            // For example, display an error message or redirect to an error page
+            header('Location: /registration-error');
+            exit;
+        }
     }
     
     

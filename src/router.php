@@ -45,20 +45,6 @@ switch ($route) {
         $userController->logout();
         break;
 
-    case '/registration':
-        if (isset($_SESSION['connected'])) {
-            header('Location: /dashboard');
-            exit;
-        } else {
-            if ($method === 'POST') {
-                $userController->confirmRegistration();
-            } else {
-                // Afficher le formulaire de connexion
-                $homeController->registration();
-            }
-        }
-        break;
-
     case '/cregistration':
         if (isset($_SESSION['connected'])) {
             header('Location: /dashboard');
@@ -68,6 +54,7 @@ switch ($route) {
                 $userController->confirmregistration();
             } else {
                 // Afficher le formulaire de connexion
+                $userController->getUserWithToken();
                 $homeController->confirmView();
             }
         }

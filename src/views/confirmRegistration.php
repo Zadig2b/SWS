@@ -1,3 +1,15 @@
+<?php
+// Check if the token is present in the URL
+if(isset($_GET['token'])) {
+    $token = $_GET['token'];
+    // Now you have the token, you can use it as needed
+    // For example, you can pass it to your controller method for further processing
+     $userController->processToken($token);
+} else {
+    // Token not found in the URL, handle the case accordingly
+    // For example, display an error message or redirect the user
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

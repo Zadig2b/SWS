@@ -84,6 +84,14 @@ public function updateUserAfterRegistration(User $user, string $hashedPassword)
         echo "Error updating user: " . $e->getMessage();
     }
 }
+public function getUserById($id) {
+    $query = "SELECT * FROM utilisateur WHERE Id_utilisateur = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute([$id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
+
 
 
 }
