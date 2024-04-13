@@ -1,12 +1,12 @@
 <?php
 
-use src\Controllers\AuthController;
+use src\Controllers\homeController;
 use src\Controllers\DashboardController;
 use src\Controllers\UserController;
 use src\Controllers\AttendanceController;
 
 // Instancier les contrôleurs
-$authController = new AuthController();
+$homeController = new homeController();
 $dashboardController = new DashboardController();
 $userController = new UserController();
 $attendanceController = new AttendanceController();
@@ -22,7 +22,7 @@ switch ($route) {
             $dashboardController->display();
         } else {
      // Vous pouvez rediriger vers une page de connexion ici si l'utilisateur n'est pas connecté
-     $authController->index();
+     $homeController->index();
 
         }
         break;
@@ -33,16 +33,16 @@ switch ($route) {
             exit;
         } else {
             if ($method === 'POST') {
-                $authController->login();
+                $userController->login();
             } else {
                 // Afficher le formulaire de connexion
-                $authController->index();
+                $homeController->index();
             }
         }
         break;
 
     case '/logout':
-        $authController->logout();
+        $userController->logout();
         break;
 
     case '/registration':
@@ -51,10 +51,10 @@ switch ($route) {
             exit;
         } else {
             if ($method === 'POST') {
-                $authController->register();
+                $userController->confirmRegistration();
             } else {
                 // Afficher le formulaire de connexion
-                $authController->registration();
+                $homeController->registration();
             }
         }
         break;
@@ -65,10 +65,10 @@ switch ($route) {
             exit;
         } else {
             if ($method === 'POST') {
-                $authController->confirmregistration();
+                $userController->confirmregistration();
             } else {
                 // Afficher le formulaire de connexion
-                $authController->confirmView();
+                $homeController->confirmView();
             }
         }
         break;
@@ -77,7 +77,7 @@ switch ($route) {
         // Vérifier les autorisations ici (par exemple, si l'utilisateur est un formateur)
         if ($_SESSION['role'] === 'formateur') {
             if ($method === 'POST') {
-                $userController->add();
+                $userController->createUserFromInput();
             } else {
                 // Afficher le formulaire d'ajout d'utilisateur
             }
@@ -105,21 +105,21 @@ switch ($route) {
                 exit;
             } else {
                 if ($method === 'POST') {
-                    $authController->login();
+                    $userController->login();
                 } else {
-                    $authController->home();
+                    $homeController->home();
                 }
             }
             break;
         case '/testhome/fetchcourse':
-            $authController->fetchCourse();
+            $homeController->fetchCourse();
             break;
 
-            case "/simplon":
-        if ($method == 'GET') {
-            $authController->home();
-        } else if ($method == 'POST') {
-            $authController->createUserFromInput();
+            case "/cregistration/sendPsw":
+        if ($method == 'POST') {
+            $userController->confirmRegistration();
+        } else if ($method == 'GET') {
+            $homeController->index();
         }
         break;
 

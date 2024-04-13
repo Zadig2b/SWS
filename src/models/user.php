@@ -12,10 +12,8 @@ class User {
     private $actif;
 
     // Constructor for the first step of user creation process
-    public function __construct($nom, $prénom, $email) {
-        $this->nom = $nom;
-        $this->prénom = $prénom;
-        $this->email = $email;
+    public function __construct() {
+        // Initialize the user object without any arguments
     }
 
     // Getters and setters

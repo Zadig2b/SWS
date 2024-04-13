@@ -6,9 +6,10 @@ use src\models\Database;
 use src\Models\User;
 use src\Repositories\UserRepository;
 
+
 class UserController
 {
-    
+
     public function createUserFromInput()
     {
         $request = file_get_contents('php://input');
@@ -60,9 +61,11 @@ class UserController
 
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
+        
+        $database = new Database();
+        $db = $database->getDB();
         // Initialize UserRepository and fetch user data from session or request
-        $userRepository = new UserRepository();
+        $userRepository = new UserRepository($db);
         $user = new User();
 
         // Update the user's profile in the database with hashed password and set actif to 1
@@ -71,5 +74,33 @@ class UserController
         // Redirect the user to a confirmation page or perform any other action
         header('Location: /registration-confirmation'); // Redirect to a confirmation page
     }
+
+    public function login(){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $database = new Database();
+        $db = $database->getDB();
+        $userRepository = new UserRepository($db);
+        $user = $userRepository->getUserByEmail($email);
+
+        if($user && password_verify($password, $user->password)){
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['user_name'] = $user->name;
+            $_SESSION['user_surname'] = $user->surname;
+            $_SESSION['user_email'] = $user->email;
+            $_SESSION['user_role'] = $user->role;
+            $_SESSION['user_actif'] = $user->actif;
+            $_SESSION['user_password'] = $user->password;
+            header('Location: /home');
+        }else{
+            header('Location: /login');
+        }
+    }
+    public function logout(){
+        session_destroy();
+        header('Location: /login');
+    }
+    
     
 }
