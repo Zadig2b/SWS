@@ -12,7 +12,7 @@ $userController = new UserController();
 $attendanceController = new AttendanceController();
 
 // Récupérer l'URL demandée
-$route = $_SERVER['REQUEST_URI'];
+$route = $_SERVER['REDIRECT_URL'];
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Définir les routes et les actions associées
@@ -54,7 +54,6 @@ switch ($route) {
                 $userController->confirmregistration();
             } else {
                 // Afficher le formulaire de connexion
-                $userController->getUserWithToken();
                 $homeController->confirmView();
             }
         }
