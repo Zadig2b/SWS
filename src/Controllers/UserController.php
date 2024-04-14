@@ -43,6 +43,11 @@ class UserController
                 // Generate token from user ID
                 $token = password_hash($userId, PASSWORD_DEFAULT);
     
+                      // Initialize UserRepository
+        $userRepository = new UserRepository($db);
+
+        // Update the user with the generated token
+        $userRepository->updateUserToken($userId, $token);
                 // Include token in the email link
                 $confirmationLink = "http://sws/cregistration?token=" . urlencode($token);
     
@@ -126,7 +131,7 @@ class UserController
         $userRepository->updateUserAfterRegistration($user, $hashedPassword);
 
         // Redirect the user to a confirmation page or perform any other action
-        header('Location: /registration-confirmation'); // Redirect to a confirmation page
+        header('Location: /testhome'); // Redirect to a confirmation page
     }
 
     public function login(){
@@ -158,30 +163,33 @@ class UserController
 
     public function processToken($token)
     {
-        // Retrieve the user ID from the hashed token
-        $userId = password_hash($token, PASSWORD_DEFAULT);
         // Initialize the database
         $database = new Database();
         $db = $database->getDB();
-
+    
         // Initialize UserRepository
         $userRepository = new UserRepository($db);
-
-        // Check if user ID is found
-        if ($userId) {
-            // Retrieve user by user ID
-            $user = $userRepository->getUserById($userId);
-
-            // Redirect to registration confirmation page
-            header('Location: /cregistration');
-            exit;
+    
+        // Retrieve user by token
+        $user = $userRepository->getUserByToken($token);
+    
+        if ($user) {
+            // Store user data in session
+            $_SESSION['user_id'] = $user['Id_utilisateur'];
+            $_SESSION['user_nom'] = $user['nom'];
+            $_SESSION['user_prénom'] = $user['prénom'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user_role'] = $user['Id_role'];
+            $_SESSION['user_actif'] = $user['actif'];
         } else {
-            // Handle case where token is invalid or user not found
-            // For example, display an error message or redirect to an error page
+            // Handle case where user is not found
             header('Location: /registration-error');
             exit;
         }
     }
+    
+    
+    
     
     
 }

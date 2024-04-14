@@ -22,6 +22,34 @@ class UserRepository {
     return $userId; //Renvoyer l'ID utilisateur
 }
 
+public function updateUserToken($userId, $token)
+{
+    try {
+        // Prepare the update query
+        $query = "UPDATE utilisateur SET token = :token WHERE Id_utilisateur = :userId";
+        $stmt = $this->db->prepare($query);
+        
+        // Bind parameters
+        $stmt->bindParam(':token', $token);
+        $stmt->bindParam(':userId', $userId);
+        
+        // Execute the update query
+        $stmt->execute();
+        
+        // Check if the update was successful
+        if ($stmt->rowCount() > 0) {
+            // Token updated successfully
+            return true;
+        } else {
+            // No rows affected, token update failed
+            return false;
+        }
+    } catch (PDOException $e) {
+        // Handle any database errors
+        echo "Error updating token: " . $e->getMessage();
+        return false;
+    }
+}
 
     public function getUserByEmail($email) {
         $query = "SELECT * FROM vercors_user WHERE email = ?";
@@ -57,12 +85,14 @@ class UserRepository {
     return null; // Incorrect email/password
 }
 
-public function getUserByToken(){
-    $query = "SELECT * FROM users WHERE token = :token";
+public function getUserByToken($token)
+{
+    $query = "SELECT * FROM utilisateur WHERE token = :token";
     $stmt = $this->db->prepare($query);
-    $stmt->execute(['token' => $_SESSION['token']]);
+    $stmt->execute(['token' => $token]);
     return $stmt->fetch();
 }
+
 public function confirmEmail($token){
     $query = "UPDATE users SET is_verified = 1 WHERE token = :token";
     $stmt = $this->db->prepare($query);
@@ -88,9 +118,25 @@ public function getUserById($id) {
     $query = "SELECT * FROM utilisateur WHERE Id_utilisateur = ?";
     $stmt = $this->db->prepare($query);
     $stmt->execute([$id]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $user;
+    $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($userData) {
+        // Create a new User object and populate its properties
+        $user = new User();
+        $user->setId($userData['Id_utilisateur']);
+        $user->setNom($userData['nom']);
+        $user->setPrénom($userData['prénom']);
+        $user->setEmail($userData['email']);
+        $user->setRole($userData['role']);
+        $user->setActif($userData['actif']);
+
+        return $user;
+    } else {
+        // Return null or handle the case where user is not found
+        return null;
+    }
 }
+
 
 
 

@@ -42,6 +42,7 @@ class HomeController
 
   public function confirmView()
   {
+    
     $this->render("confirmRegistration");
   }
 }
