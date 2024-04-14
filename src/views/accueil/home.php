@@ -78,6 +78,8 @@
         </div>
         <!--------------------------------------- END OF DELAY PANEL CONTENT ----------------------------------------------------->
         <script src="<?= HOME_URL ?>assets/js/script.js"></script>
+        <script src="<?= HOME_URL ?>assets/js/user.js"></script>
+
   </body>
 
   </html>

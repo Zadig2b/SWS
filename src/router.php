@@ -109,6 +109,13 @@ switch ($route) {
         }
         break;
 
+        case '/testhome/student/createStudent':
+            if ($method == 'POST') {
+                $userController->createUserFromInput();
+            } else if ($method == 'GET') {
+                $homeController->index();
+            }
+            break;
     default:
         // Afficher une page 404 si l'URL demandée n'existe pas
         http_response_code(404);
