@@ -99,14 +99,14 @@ public function confirmEmail($token){
     $stmt->execute(['token' => $token]);
 }
 
-public function updateUserAfterRegistration(User $user, string $hashedPassword)
+public function updateUserAfterRegistration(int $userId, string $hashedPassword)
 {
     try {
         // Update the user's profile in the database with hashed password and set actif to 1
         $query = "UPDATE utilisateur SET password = :password, actif = 1 WHERE Id_utilisateur = :userId";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':password', $hashedPassword);
-        $stmt->bindParam(':userId', $user->getId());
+        $stmt->bindParam(':userId', $userId);
         $stmt->execute();
     } catch (PDOException $e) {
         // Handle any database errors here
@@ -114,6 +114,7 @@ public function updateUserAfterRegistration(User $user, string $hashedPassword)
         echo "Error updating user: " . $e->getMessage();
     }
 }
+
 public function getUserById($id) {
     $query = "SELECT * FROM utilisateur WHERE Id_utilisateur = ?";
     $stmt = $this->db->prepare($query);

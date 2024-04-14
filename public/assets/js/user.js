@@ -11,6 +11,7 @@ function submitRegistration() {
 }
 
 function sendPsw(password) {
+    console.log(password);
     // Data to be sent in the request
     var data = {
         password: password

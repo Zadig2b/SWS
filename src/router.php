@@ -46,43 +46,13 @@ switch ($route) {
         break;
 
     case '/cregistration':
-        if (isset($_SESSION['connected'])) {
-            header('Location: /dashboard');
-            exit;
-        } else {
             if ($method === 'POST') {
                 $userController->confirmregistration();
             } else {
                 // Afficher le formulaire de connexion
-                $homeController->confirmView();
+                $userController->confirmView();
             }
-        }
-        break;
-
-    case '/addUser':
-        // Vérifier les autorisations ici (par exemple, si l'utilisateur est un formateur)
-        if ($_SESSION['role'] === 'formateur') {
-            if ($method === 'POST') {
-                $userController->createUserFromInput();
-            } else {
-                // Afficher le formulaire d'ajout d'utilisateur
-            }
-        } else {
-            // Rediriger ou afficher un message d'erreur pour les autorisations insuffisantes
-        }
-        break;
-
-    case '/markAttendance':
-        // Vérifier les autorisations ici (par exemple, si l'utilisateur est un formateur)
-        if ($_SESSION['role'] === 'formateur') {
-            if ($method === 'POST') {
-                $attendanceController->markAttendance();
-            } else {
-                // Afficher le formulaire de marquage de présence
-            }
-        } else {
-            // Rediriger ou afficher un message d'erreur pour les autorisations insuffisantes
-        }
+        
         break;
 
         case '/testhome':

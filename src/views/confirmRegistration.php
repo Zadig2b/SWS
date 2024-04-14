@@ -1,30 +1,4 @@
-<?php
-// Check if the token is present in the URL
 
-use src\Controllers\UserController;
-
-if(isset($_GET['token'])) {
-    $token = $_GET['token'];
-    // Now you have the token, you can use it as needed
-    // For example, you can pass it to your controller method for further processing
-    $userController = new UserController();
-
-     $userController->processToken($token);
-} else {
-    // Token not found in the URL, handle the case accordingly
-    // For example, display an error message or redirect the user
-}
-?>
-<?php
-
-// Check if user's name and surname are set in the session
-$userName = isset($_SESSION['user_nom']) ? $_SESSION['user_nom'] : '';
-$userSurname = isset($_SESSION['user_prénom']) ? $_SESSION['user_prénom'] : '';
-
-
-// Output user's name and surname
-echo "Nom: $userName, Prénom: $userSurname";
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,12 +17,13 @@ echo "Nom: $userName, Prénom: $userSurname";
 include 'includes/header.php';
 ?>
 <div id="form-container">
+    <form>
     <div id="form">
         <h1>Bienvenue  <?= $userSurname ?>,</h1>
         <p>Pour clôturer votre inscription et créer votre compte, veuillez choisir un mot de passe.</p>
         <div class="mb-3">
             <label for="password" class="form-label">Mot de passe*</label>
-            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp">
+            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" name="password">
             <div id="passwordHelp" class="form-text"></div>
         </div>
         <div class="mb-3">
@@ -58,6 +33,7 @@ include 'includes/header.php';
         <button type="button" class="btn btn-primary" onclick="submitRegistration()">Sauvegarder</button>
     </div>
 </div>
+</form>
 <script src="<?= HOME_URL ?>assets/js/user.js"></script>
 </body>
 </html>
