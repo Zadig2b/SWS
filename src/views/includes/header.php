@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="http://sws/">SIMPLON</a>
@@ -8,7 +7,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Connexion</a>
+          <?php
+          if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
+              echo '<a class="nav-link active" aria-current="page" href="/logout">Déconnexion</a>';
+          } else {
+              echo '<a class="nav-link active" aria-current="page" href="/login">Connexion</a>';
+          }
+          ?>
         </li>
       </ul>
     </div>

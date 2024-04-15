@@ -9,7 +9,7 @@ use src\Repositories\CoursesRepository;
 class HomeController
 {
   use Reponse;
-  public function index(): void
+  public function loginView(): void
   {
     if (isset($_GET['erreur'])) {
       $erreur = htmlspecialchars($_GET['erreur']);
@@ -28,6 +28,7 @@ class HomeController
 
     $this->render("accueil.home");
   }
+  
   public function fetchCourse()
   {
     $coursesRepository = new CoursesRepository();

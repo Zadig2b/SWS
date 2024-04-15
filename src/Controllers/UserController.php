@@ -6,7 +6,7 @@ use src\models\Database;
 use src\Models\User;
 use src\Repositories\UserRepository;
 use src\Services\Reponse;
-
+use Exception;
 class UserController
 {
     use Reponse;
@@ -77,42 +77,6 @@ class UserController
 
 
 
-    public function createStudent()
-    {
-        // Retrieve data from the request
-        $data = json_decode(file_get_contents('php://input'));
-
-        // Check if data is not null
-        if ($data) {
-            // Extract data fields
-            $nom = $data->nom;
-            $prenom = $data->prenom;
-            $email = $data->email;
-
-            // Initialize the database
-            $database = new Database();
-            $db = $database->getDB();
-
-            // Initialize UserRepository
-            $userRepository = new UserRepository($db);
-
-            // Create a new User instance
-            $user = new User();
-            $user->setNom($nom);
-            $user->setPrénom($prenom);
-            $user->setEmail($email);
-
-            // Call the method to create the student
-            $userRepository->formateurCreateUser($user);
-
-            // Respond with success message
-            echo json_encode(array('message' => 'Student created successfully.'));
-        } else {
-            // Respond with error message
-            http_response_code(400);
-            echo json_encode(array('message' => 'Invalid data provided.'));
-        }
-    }
 
     public function confirmView()
     {
@@ -124,7 +88,7 @@ class UserController
             $this->processToken($token);
         } else {
             // Token not found in the URL, handle the case accordingly
-            // For example, display an error message or redirect the user
+            $this->render("accueil.home");
         }
 
         // Get username and surname from session
@@ -148,16 +112,28 @@ class UserController
         $request = file_get_contents('php://input');
         $requestData = json_decode($request, true);
     
+        // Log the request data for debugging
+        error_log('Request data: ' . print_r($requestData, true));
+    
         // Check if the password is present in the request data
         if(isset($requestData['password'])) {
             // Get the password from the request data
             $password = $requestData['password'];
     
+            // Log the password for debugging
+            error_log('Password: ' . $password);
+    
             // Hash the password
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
+            // Log the hashed password for debugging
+            error_log('Hashed password: ' . $hashedPassword);
+    
             // Get user ID from session
             $userId = $_SESSION['user_id'];
+    
+            // Log the user ID for debugging
+            error_log('User ID: ' . $userId);
     
             // Update the user's profile in the database with hashed password and set actif to 1
             $database = new Database();
@@ -166,42 +142,62 @@ class UserController
             $userRepository = new UserRepository($db);
             $userRepository->updateUserAfterRegistration($userId, $hashedPassword);
     
-            // Redirect the user to a confirmation page or perform any other action
             // Redirect to a confirmation page
-            // header('Location:home');
+            $this->render("accueil.home", [$userId]);
         } else {
             // Handle case where password is not present in the request data
             // For example, display an error message or redirect the user
+            error_log('Password not provided in the request.');
             echo "Password not provided in the request.";
         }
+        
     }
     
 
-
-
     public function login()
     {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $database = new Database();
-        $db = $database->getDB();
-        $userRepository = new UserRepository($db);
-        $user = $userRepository->getUserByEmail($email);
-
-        if ($user && password_verify($password, $user->password)) {
-            $_SESSION['user_id'] = $user->id;
-            $_SESSION['user_name'] = $user->name;
-            $_SESSION['user_surname'] = $user->surname;
-            $_SESSION['user_email'] = $user->email;
-            $_SESSION['user_role'] = $user->role;
-            $_SESSION['user_actif'] = $user->actif;
-            $_SESSION['user_password'] = $user->password;
-            header('Location: /home');
+        // Get the request body from JSON
+        $request = file_get_contents('php://input');
+        $requestData = json_decode($request, true);
+    
+        // Log the request data for debugging
+        error_log('Login Request data: ' . print_r($requestData, true));
+    
+        // Check if email and password are present in the request data
+        if(isset($requestData['email']) && isset($requestData['password'])) {
+            // Get the email and password from the request data
+            $email = $requestData['email'];
+            $password = $requestData['password'];
+    
+            // Log the email and password for debugging
+            error_log('Email: ' . $email);
+            error_log('Password: ' . $password);
+    
+            $database = new Database();
+            $db = $database->getDB();
+            $userRepository = new UserRepository($db);
+            $user = $userRepository->getUserByEmail($email);
+    
+            if ($user && password_verify($password, $user->password)) {
+                $_SESSION['connected'] = true;
+                $_SESSION['user_id'] = $user->Id_utilisateur;
+                $_SESSION['user_nom'] = $user->nom;
+                $_SESSION['user_prénom'] = $user->prénom;
+                $_SESSION['user_email'] = $user->email;
+                $_SESSION['user_role'] = $user->role;
+                $_SESSION['user_actif'] = $user->actif;
+                header('Location: /testhome');
+            } else {
+                header('Location: /login');
+            }
         } else {
-            header('Location: /login');
+            // Handle case where email or password is not present in the request data
+            // For example, display an error message or redirect the user
+            error_log('Email or password not provided in the request.');
+            echo "Email or password not provided in the request.";
         }
     }
+    
     public function logout()
     {
         session_destroy();
@@ -234,4 +230,53 @@ class UserController
             exit;
         }
     }
+    public function fetchStudents(){
+        try {
+            $database = new Database();
+            $db = $database->getDB();
+            $userRepository = new UserRepository($db);
+            $students = $userRepository->getUsers();
+    
+            // Convert user objects to associative arrays
+            $studentData = [];
+            foreach ($students as $student) {
+                $studentData[] = [
+                    'id' => $student->getId(),
+                    'nom' => $student->getNom(),
+                    'prénom' => $student->getPrénom(),
+                    'email' => $student->getEmail(),
+                    'role' => $student->getRole(),
+                    'actif' => $student->getActif()
+                ];
+            }
+    
+            // Return the array of student data as JSON
+            echo json_encode($studentData);
+        } catch (Exception $e) {
+            // Log the error message
+            error_log('Error fetching students: ' . $e->getMessage());
+            // Return an empty array to indicate failure
+            return ['Error fetching students'];
+        }
+    }
+    public function fetchStudents2(){
+        try {
+            $database = new Database();
+            $db = $database->getDB();
+            $userRepository = new UserRepository($db);
+            $students = $userRepository->getUsers2();
+    
+            // Return the array of student data as JSON
+            echo json_encode($students);
+        } catch (Exception $e) {
+            // Log the error message
+            error_log('Error fetching students: ' . $e->getMessage());
+            // Return an empty array to indicate failure
+            return json_encode(['Error fetching students']);
+        }
+    }
+    
+    
+    
+    
 }

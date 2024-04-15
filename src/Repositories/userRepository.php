@@ -51,12 +51,13 @@ public function updateUserToken($userId, $token)
     }
 }
 
-    public function getUserByEmail($email) {
-        $query = "SELECT * FROM vercors_user WHERE email = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute([$email]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+public function getUserByEmail($email) {
+    $query = "SELECT * FROM utilisateur WHERE email = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute([$email]);
+    return $stmt->fetch(PDO::FETCH_OBJ);
+}
+
 
     public function validateCredentials($email, $password)
 {
@@ -137,6 +138,37 @@ public function getUserById($id) {
         return null;
     }
 }
+public function getUsers() {
+    $query = "SELECT * FROM utilisateur";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $userObjects = [];
+    foreach ($users as $userData) {
+        $user = new User();
+        $user->setId($userData['Id_utilisateur']);
+        $user->setNom($userData['nom']);
+        $user->setPrénom($userData['prénom']);
+        $user->setEmail($userData['email']);
+        $user->setRole($userData['Id_role']);
+        $user->setActif($userData['actif']);
+
+        $userObjects[] = $user;
+    }
+
+    return $userObjects;
+}
+
+public function getUsers2() {
+    $query = "SELECT * FROM utilisateur";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $users;
+}
+
 
 
 

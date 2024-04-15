@@ -52,4 +52,5 @@
 </div>
 
 
+<script src="<?= HOME_URL ?>assets/js/fetchStudent.js"></script>
 

@@ -38,6 +38,7 @@ function sendPsw(password) {
             // Handle success response here
             console.log('Password sent successfully.');
             // Redirect or perform any other action after successful submission
+            renderConfirmRegistrationView()
         })
         .catch(error => {
             console.error('Error sending password:', error);
@@ -86,4 +87,62 @@ function createStudent() {
             console.error('Error creating student:', error);
         });
 }
+
+function renderConfirmRegistrationView() {
+    // Fetch the rendered view from the server
+    fetch('/cregistration/sendPsw')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch view');
+            }
+            return response.text(); // Assuming the response contains HTML content
+        })
+        .then(html => {
+            // Update the document body with the received HTML content
+            document.body.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error rendering confirm registration view:', error);
+        });
+}
+
+function login(){
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    console.log(email);
+    console.log(password);
+    var data = {
+        email: email,
+        password: password
+    };
+
+    var options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+
+    var url = '/login';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            // Perform any necessary actions with the received data
+        })
+        .catch(error => {
+            console.error('Error logging in:', error);
+        });
+}
+
+
+
+
 

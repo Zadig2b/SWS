@@ -8,6 +8,7 @@
     const createDelaySection = document.getElementById('create-delay-section');
     const returnBtnStudent = document.getElementById('retour-btn-student-submit');
     const returnBtnDelay = document.getElementById('retour-btn-delay-submit');
+    const promoTabBtn = document.getElementById('promo-tab');
 
     addStudentBtn.addEventListener('click', function() {
       gridStudent.style.display = 'none';
@@ -133,4 +134,8 @@
       header.innerHTML = originalHeaderContent;
       studentSection.innerHTML = originalStudentSectionContent
   });
+
+promoTabBtn.addEventListener("click", function(){
+  fetchStudents()
+})
 

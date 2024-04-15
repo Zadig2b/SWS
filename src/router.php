@@ -1,44 +1,39 @@
 <?php
 
 use src\Controllers\homeController;
-use src\Controllers\DashboardController;
 use src\Controllers\UserController;
 use src\Controllers\AttendanceController;
 
 // Instancier les contrôleurs
 $homeController = new homeController();
-$dashboardController = new DashboardController();
 $userController = new UserController();
 $attendanceController = new AttendanceController();
 
 // Récupérer l'URL demandée
 $route = $_SERVER['REDIRECT_URL'];
+$route2 = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Définir les routes et les actions associées
 switch ($route) {
     case '/':
         if (isset($_SESSION['connected'])) {
-            $dashboardController->display();
+            $homeController->home();
         } else {
      // Vous pouvez rediriger vers une page de connexion ici si l'utilisateur n'est pas connecté
-     $homeController->index();
+     $homeController->loginView();
 
         }
         break;
 
     case '/login':
-        if (isset($_SESSION['connected'])) {
-            header('Location: /dashboard');
-            exit;
-        } else {
             if ($method === 'POST') {
                 $userController->login();
             } else {
-                // Afficher le formulaire de connexion
-                $homeController->index();
+
+                $homeController->loginView();
             }
-        }
+        
         break;
 
     case '/logout':
@@ -57,7 +52,7 @@ switch ($route) {
 
         case '/testhome':
             if (isset($_SESSION['connected'])) {
-                header('Location: /dashboard');
+                $homeController->home();
                 exit;
             } else {
                 if ($method === 'POST') {
@@ -75,7 +70,7 @@ switch ($route) {
         if ($method == 'POST') {
             $userController->confirmRegistration();
         } else if ($method == 'GET') {
-            $homeController->index();
+            $homeController->home();
         }
         break;
 
@@ -83,9 +78,13 @@ switch ($route) {
             if ($method == 'POST') {
                 $userController->createUserFromInput();
             } else if ($method == 'GET') {
-                $homeController->index();
+                $homeController->loginView();
             }
             break;
+        case '/testhome/fetchStudents';
+            $userController->fetchStudents2();
+            break;
+
     default:
         // Afficher une page 404 si l'URL demandée n'existe pas
         http_response_code(404);
