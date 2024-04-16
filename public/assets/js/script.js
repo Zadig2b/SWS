@@ -9,6 +9,7 @@
     const returnBtnStudent = document.getElementById('retour-btn-student-submit');
     const returnBtnDelay = document.getElementById('retour-btn-delay-submit');
     const promoTabBtn = document.getElementById('promo-tab');
+    const promoSection = document.getElementById('promo-individual-section');
 
     addStudentBtn.addEventListener('click', function() {
       gridStudent.style.display = 'none';
@@ -137,5 +138,10 @@
 
 promoTabBtn.addEventListener("click", function(){
   fetchStudents()
+  fetchPromos()
 })
 
+document.addEventListener("DOMContentLoaded", function() {
+
+  promoSection.style.display = "none";
+});

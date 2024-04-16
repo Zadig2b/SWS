@@ -9,6 +9,27 @@
   <link rel="stylesheet" href="<?= HOME_URL ?>assets/css/style.css">
   <title>homeApprenant</title>
 </head>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="http://sws/">SIMPLON</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <?php
+          if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
+              echo '<a class="nav-link active" aria-current="page" href="/logout">Déconnexion</a>';
+          } 
+          ?>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
   <body>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">

@@ -16,7 +16,6 @@ class HomeController
     } else {
       $erreur = '';
     }
-    $this->render("includes.header", ["erreur" => $erreur]);
 
     $this->render("auth.login", ["erreur" => $erreur]);
   }
@@ -25,10 +24,8 @@ class HomeController
   {
     if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
       if ($_SESSION['user_role'] == 1) {
-        $this->render("includes.header");
-        $this->render("accueil.home");
+        $this->render("accueil.homeV2");
       } elseif ($_SESSION['user_role'] == 2) {
-        $this->render("includes.header");
         $this->render("accueil.homeApprenant");
       }
     }

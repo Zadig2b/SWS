@@ -48,18 +48,6 @@ switch ($route) {
 
         break;
 
-    // case '/testhome':
-    //     if (isset($_SESSION['connected'])) {
-    //         $homeController->home();
-    //         exit;
-    //     } else {
-    //         if ($method === 'POST') {
-    //             $userController->login();
-    //         } else {
-    //             $homeController->loginView();
-    //         }
-    //     }
-    //     break;
     case '/fetchcourse':
         $homeController->fetchCourse();
         break;
@@ -81,6 +69,10 @@ switch ($route) {
         break;
     case '/fetchStudents';
         $userController->fetchStudents2();
+        break;
+    
+    case '/fetchPromos';
+        $homeController->fetchPromos();
         break;
 
     default:
