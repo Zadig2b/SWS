@@ -72,7 +72,7 @@ switch ($route) {
         break;
     
     case '/fetchPromos';
-        $homeController->fetchPromos();
+        $homeController->fetchPromo();
         break;
 
     default:

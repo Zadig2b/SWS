@@ -39,6 +39,13 @@ class HomeController
     echo json_encode($courses);
   }
 
+  public function fetchPromo()
+  {
+    $coursesRepository = new CoursesRepository();
+    $promos = $coursesRepository->getPromos();
+    echo json_encode($promos);
+  }
+
   public function registration()
   {
     $this->render("register");

@@ -15,10 +15,11 @@ function fetchPromos() {
             console.error('Error fetching promos:', error);
         });
 }
+const promoGrid = document.getElementById('promo-grid-content');
+// const promoSection = document.getElementById('promo-individual-section');
 
 function displayPromos(promos) {
     // Select the promo grid container
-    const promoGrid = document.getElementById('promo-grid');
 
     // Clear existing content
     promoGrid.innerHTML = '';
@@ -27,17 +28,38 @@ function displayPromos(promos) {
     promos.forEach(promo => {
         const promoRow = document.createElement('div');
         promoRow.classList.add('row');
+        promoRow.dataset.id = promo.Id_promo;
         promoRow.innerHTML = `
             <div class="col">${promo.nom}</div>
-            <div class="col">${promo.prénom}</div>
-            <div class="col">${promo.email}</div>
-            <div class="col">${promo.actif ? 'Yes' : 'No'}</div>
-            <div class="col">${promo.Id_role}</div>
+            <div class="col">${promo.début}</div>
+            <div class="col">${promo.fin}</div>
+            <div class="col">${promo.places_max}</div>
+    
             <div class="col">
-                <button type="button" class="btn btn-outline-dark">Edit</button>
+                <button type="button" data-id="${promo.Id_promo}" id="voir-promo-${promo.Id_promo}" class="btn btn-outline-primary voir-promo">Voir</button>
+                <button type="button" data-id="${promo.Id_promo}" id="éditer-promo-${promo.Id_promo}" class="btn btn-outline-primary éditer-promo">Editer</button>
+                <button type="button" data-id="${promo.Id_promo}" id="supprimer-promo-${promo.Id_promo}" class="btn btn-outline-primary supprimer-promo">Supprimer</button>
             </div>
         `;
         promoGrid.appendChild(promoRow);
     });
-}
+    
+    // Add event listener for the promo buttons
 
+}
+promoGrid.addEventListener('click', (event) => {
+    const button = event.target;
+    if (button.classList.contains('voir-promo')) {
+        const promoId = button.dataset.id;
+        // Handle the "Voir" button click for the promo with ID promoId
+        promoSection.style.display = 'block';
+        allPromo.style.display = 'none';
+
+    } else if (button.classList.contains('éditer-promo')) {
+        const promoId = button.dataset.id;
+        // Handle the "Editer" button click for the promo with ID promoId
+    } else if (button.classList.contains('supprimer-promo')) {
+        const promoId = button.dataset.id;
+        // Handle the "Supprimer" button click for the promo with ID promoId
+    }
+});

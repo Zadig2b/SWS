@@ -10,7 +10,8 @@
     const returnBtnDelay = document.getElementById('retour-btn-delay-submit');
     const promoTabBtn = document.getElementById('promo-tab');
     const promoSection = document.getElementById('promo-individual-section');
-
+    const allPromo = document.getElementById('all-promos-section')
+    
     addStudentBtn.addEventListener('click', function() {
       gridStudent.style.display = 'none';
       nestedTab.style.display = 'none';
@@ -145,3 +146,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   promoSection.style.display = "none";
 });
+
+
+
