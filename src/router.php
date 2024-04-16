@@ -20,20 +20,18 @@ switch ($route) {
         if (isset($_SESSION['connected'])) {
             $homeController->home();
         } else {
-     // Vous pouvez rediriger vers une page de connexion ici si l'utilisateur n'est pas connecté
-     $homeController->loginView();
-
+            $homeController->loginView();
         }
         break;
 
-    case '/login':
-            if ($method === 'POST') {
-                $userController->login();
-            } else {
 
-                $homeController->loginView();
-            }
-        
+    case '/login':
+        if ($method === 'POST') {
+            $userController->login();
+        } else {
+            $homeController->loginView();
+        }
+
         break;
 
     case '/logout':
@@ -41,32 +39,32 @@ switch ($route) {
         break;
 
     case '/cregistration':
-            if ($method === 'POST') {
-                $userController->confirmregistration();
-            } else {
-                // Afficher le formulaire de connexion
-                $userController->confirmView();
-            }
-        
+        if ($method === 'POST') {
+            $userController->confirmregistration();
+        } else {
+            // Afficher le formulaire de connexion
+            $userController->confirmView();
+        }
+
         break;
 
-        case '/testhome':
-            if (isset($_SESSION['connected'])) {
-                $homeController->home();
-                exit;
-            } else {
-                if ($method === 'POST') {
-                    $userController->login();
-                } else {
-                    $homeController->home();
-                }
-            }
-            break;
-        case '/testhome/fetchcourse':
-            $homeController->fetchCourse();
-            break;
+    // case '/testhome':
+    //     if (isset($_SESSION['connected'])) {
+    //         $homeController->home();
+    //         exit;
+    //     } else {
+    //         if ($method === 'POST') {
+    //             $userController->login();
+    //         } else {
+    //             $homeController->loginView();
+    //         }
+    //     }
+    //     break;
+    case '/fetchcourse':
+        $homeController->fetchCourse();
+        break;
 
-            case "/cregistration/sendPsw":
+    case "/cregistration/sendPsw":
         if ($method == 'POST') {
             $userController->confirmRegistration();
         } else if ($method == 'GET') {
@@ -74,16 +72,16 @@ switch ($route) {
         }
         break;
 
-        case '/testhome/student/createStudent':
-            if ($method == 'POST') {
-                $userController->createUserFromInput();
-            } else if ($method == 'GET') {
-                $homeController->loginView();
-            }
-            break;
-        case '/testhome/fetchStudents';
-            $userController->fetchStudents2();
-            break;
+    case '/testhome/student/createStudent':
+        if ($method == 'POST') {
+            $userController->createUserFromInput();
+        } else if ($method == 'GET') {
+            $homeController->loginView();
+        }
+        break;
+    case '/fetchStudents';
+        $userController->fetchStudents2();
+        break;
 
     default:
         // Afficher une page 404 si l'URL demandée n'existe pas

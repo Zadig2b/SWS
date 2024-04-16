@@ -1,9 +1,9 @@
 // Chemin d'accès pour les requêtes AJAX
-const BASE_URL = '/'; // Mettez votre URL de base ici
+// const BASE_URL = '/'; 
 
 // Fonction pour charger les cours depuis le serveur
 function loadCourses() {
-    fetch(`/testhome/fetchcourse`)
+    fetch(`/fetchcourse`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

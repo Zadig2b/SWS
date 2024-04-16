@@ -7,19 +7,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="<?= HOME_URL ?>assets/css/style.css">
-  <title>Login</title>
+  <title>homeFormateur</title>
 </head>
 
-<body>
 
-  <!DOCTYPE html>
-  <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
 
   <body>
     <!--------------------------- PREMIER PANEL -------------------------------------->
@@ -37,18 +28,29 @@
     <!--------------------------- FIN PREMIER PANEL -------------------------------------->
 
     <?php
-    include_once('main.php');
-    // accueil
+    if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
+      if ($_SESSION['user_role'] == 1) {
+        include_once('accueilFormateur.php');
+      } elseif ($_SESSION['user_role'] == 2) {
+        include_once('accueilApprenant.php');
+      } 
+    } else {
+      include_once(__DIR__ . '/../auth/login.php');
+    }
     ?>
+
 
     <!-------------------------------------- second panel HEADER ------------------------------------------>
     <div class="tab-pane fade" id="promo-tab-pane" role="tabpanel" aria-labelledby="promo-tab" tabindex="0">
 
-      <?php
-      include_once(__DIR__ . '/../promos/apprenants/header.php');
-
-      include(__DIR__ . '/../promos/nestedTab.php');
-      ?>
+    <?php
+    if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
+      if ($_SESSION['user_role'] == 1) {
+        include_once(__DIR__ . '/../promos/apprenants/header.php');
+        include(__DIR__ . '/../promos/nestedTab.php');
+            } 
+    } 
+    ?>
       <div class="tab-pane fade show active" id="student-tab-pane" role="tabpanel" aria-labelledby="student-tab" tabindex="0">
 
         <div id="student-section" class="section">
@@ -77,6 +79,8 @@
           ?>
         </div>
         <!--------------------------------------- END OF DELAY PANEL CONTENT ----------------------------------------------------->
+
+        <script src="<?= HOME_URL ?>assets/js/courses.js"></script>
         <script src="<?= HOME_URL ?>assets/js/script.js"></script>
         <script src="<?= HOME_URL ?>assets/js/user.js"></script>
 

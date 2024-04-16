@@ -38,7 +38,7 @@ function sendPsw(password) {
             // Handle success response here
             console.log('Password sent successfully.');
             // Redirect or perform any other action after successful submission
-            renderConfirmRegistrationView()
+            window.location.href = '/';
         })
         .catch(error => {
             console.error('Error sending password:', error);
@@ -135,7 +135,8 @@ function login(){
         })
         .then(data => {
             console.log(data);
-            // Perform any necessary actions with the received data
+
+            window.location.href = '/';
         })
         .catch(error => {
             console.error('Error logging in:', error);

@@ -129,7 +129,7 @@ public function getUserById($id) {
         $user->setNom($userData['nom']);
         $user->setPrénom($userData['prénom']);
         $user->setEmail($userData['email']);
-        $user->setRole($userData['role']);
+        $user->setRole($userData['Id_role']);
         $user->setActif($userData['actif']);
 
         return $user;

@@ -7,6 +7,8 @@ use src\Models\User;
 use src\Repositories\UserRepository;
 use src\Services\Reponse;
 use Exception;
+use src\Controllers\HomeController;
+
 class UserController
 {
     use Reponse;
@@ -54,8 +56,8 @@ class UserController
 
                 // Send email to the designated email
                 $to = $email;
-                $subject = 'Registration Confirmation';
-                $message = 'Hello ' . $nom . ', Your account has been successfully created. Please proceed with the registration process by clicking on the following link: ' . $confirmationLink;
+                $subject = 'Confirmation d\inscription à la plateforme SWS';
+                $message = 'Bonjour ' . $nom . ', un formateur a initié une création de compte vous concernant. Pour clôturer votre inscription et choisir votre mot de passe, il vous suffit de cliquer sur le lien suivant: ' . $confirmationLink;
                 $headers = 'From: your_email@example.com';
 
                 // Send email
@@ -88,7 +90,9 @@ class UserController
             $this->processToken($token);
         } else {
             // Token not found in the URL, handle the case accordingly
-            $this->render("accueil.home");
+            $this->render("includes.header");
+
+            $this->render("auth.login");
         }
 
         // Get username and surname from session
@@ -141,9 +145,16 @@ class UserController
             // Initialize UserRepository
             $userRepository = new UserRepository($db);
             $userRepository->updateUserAfterRegistration($userId, $hashedPassword);
-    
-            // Redirect to a confirmation page
-            $this->render("accueil.home", [$userId]);
+            $user= $userRepository->getUserById($userId);
+            $_SESSION['connected'] = true;
+            $_SESSION['user_id'] = $user->getId();
+            $_SESSION['user_nom'] = $user->getNom();
+            $_SESSION['user_prénom'] = $user->getPrénom();
+            $_SESSION['user_email'] = $user->getEmail();
+            $_SESSION['user_role'] = $user->getRole();
+            $_SESSION['user_actif'] = $user->getActif();
+            echo json_encode("Login successful.");
+            
         } else {
             // Handle case where password is not present in the request data
             // For example, display an error message or redirect the user
@@ -184,9 +195,12 @@ class UserController
                 $_SESSION['user_nom'] = $user->nom;
                 $_SESSION['user_prénom'] = $user->prénom;
                 $_SESSION['user_email'] = $user->email;
-                $_SESSION['user_role'] = $user->role;
+                $_SESSION['user_role'] = $user->Id_role;
                 $_SESSION['user_actif'] = $user->actif;
-                header('Location: /testhome');
+                
+                echo json_encode("Login successful.");
+
+
             } else {
                 header('Location: /login');
             }
@@ -201,7 +215,7 @@ class UserController
     public function logout()
     {
         session_destroy();
-        header('Location: /login');
+        header('Location: /');
     }
 
     public function processToken($token)

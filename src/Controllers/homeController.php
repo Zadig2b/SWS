@@ -23,19 +23,25 @@ class HomeController
 
   public function home(): void
   {
-
-    $this->render("includes.header");
-
-    $this->render("accueil.home");
+    if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
+      if ($_SESSION['user_role'] == 1) {
+        $this->render("includes.header");
+        $this->render("accueil.home");
+      } elseif ($_SESSION['user_role'] == 2) {
+        $this->render("includes.header");
+        $this->render("accueil.homeApprenant");
+      }
+    }
+    // $this->loginView();
   }
-  
+
   public function fetchCourse()
   {
     $coursesRepository = new CoursesRepository();
     $courses = $coursesRepository->getCourses();
     echo json_encode($courses);
   }
-  
+
   public function registration()
   {
     $this->render("register");
@@ -43,7 +49,7 @@ class HomeController
 
   public function confirmView()
   {
-    
+
     $this->render("confirmRegistration");
   }
 }
