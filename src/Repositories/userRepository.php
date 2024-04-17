@@ -169,6 +169,20 @@ public function getUsers2() {
     return $users;
 }
 
+public function getUsersForPromo($promoId)
+{
+    $query = "SELECT u.*
+              FROM utilisateur u
+              JOIN appartient a ON u.Id_utilisateur = a.Id_utilisateur
+              WHERE a.Id_promo = :promoId";
+
+    $statement = $this->db->prepare($query);
+    $statement->bindParam(':promoId', $promoId, PDO::PARAM_INT);
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 
 

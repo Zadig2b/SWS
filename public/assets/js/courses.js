@@ -76,7 +76,7 @@ function displayCourses(courses) {
                 statusButton.classList.add('btn-primary');
                 statusButton.textContent = 'Valider Présence';
             } else {
-                const allSigned = /* Add logic to check if all students have signed */;
+                const allSigned = ""/* Add logic to check if all students have signed */;
                 statusButton.classList.add(allSigned ? 'btn-success' : 'btn-warning');
                 statusButton.textContent = allSigned ? 'Signature recueillies' : 'Signatures en cours';
             }

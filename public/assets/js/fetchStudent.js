@@ -27,6 +27,8 @@ function displayStudents(students) {
     students.forEach(student => {
         const studentRow = document.createElement('div');
         studentRow.classList.add('row');
+        studentRow.dataset.idUtilisateur = student.Id_utilisateur;
+
         studentRow.innerHTML = `
             <div class="col">${student.nom}</div>
             <div class="col">${student.prénom}</div>
@@ -41,3 +43,35 @@ function displayStudents(students) {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const voirPromoButtons = document.querySelectorAll('.voir-promo');
+
+    voirPromoButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const promoId = this.getAttribute('data-id');
+            fetchUsersForPromo(promoId);
+        });
+    });
+});
+
+function fetchUsersForPromo(promoId) {
+    fetch(`/fetchUsersForPromo?promoId=${promoId}`, { 
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Process the data returned from the server
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}

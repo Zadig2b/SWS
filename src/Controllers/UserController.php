@@ -273,6 +273,7 @@ class UserController
             return ['Error fetching students'];
         }
     }
+
     public function fetchStudents2(){
         try {
             $database = new Database();
@@ -289,8 +290,22 @@ class UserController
             return json_encode(['Error fetching students']);
         }
     }
-    
-    
-    
-    
+
+    public function getUsersForPromo($promoId){
+        try {
+            $database = new Database();
+            $db = $database->getDB();
+            $userRepository = new UserRepository($db);
+            $students = $userRepository->getUsersForPromo($promoId);
+
+            // Return the array of student data as JSON
+            echo json_encode($students);
+        } catch (Exception $e) {
+            // Log the error message
+            error_log('Error fetching students: ' . $e->getMessage());
+            // Return an empty array to indicate failure
+            return json_encode(['Error fetching students']);
+        }
+    }
+     
 }

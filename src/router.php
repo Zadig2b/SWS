@@ -74,7 +74,9 @@ switch ($route) {
     case '/fetchPromos';
         $homeController->fetchPromo();
         break;
-
+    case '/fetchUsersForPromo';
+        $userController->getUsersForPromo($promoId);
+        break;
     default:
         // Afficher une page 404 si l'URL demandée n'existe pas
         http_response_code(404);

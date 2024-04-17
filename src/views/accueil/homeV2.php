@@ -64,28 +64,29 @@
         <?php
         include_once(__DIR__ . '/../promos/header.php');
         ?>
+        <div id="promo-individual-container">
         <div id="promo-individual-section" class="section">
-        <?php
-        include_once(__DIR__ . '/../promos/apprenants/header.php');
-        include(__DIR__ . '/../promos/nestedTab.php');
-        ?>
+            <?php
+            include_once(__DIR__ . '/../promos/apprenants/header.php');
+            include(__DIR__ . '/../promos/nestedTab.php');
+            ?>
 
-        <div class="tab-pane fade show active" id="student-tab-pane" role="tabpanel" aria-labelledby="student-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="student-tab-pane" role="tabpanel" aria-labelledby="student-tab" tabindex="0">
 
-            <div id="student-section" class="section">
-
-
-                <!------------------------------------- MAIN OF STUDENTS ------------------------------------->
-
-                <?php
-                include_once(__DIR__ . '/../promos/apprenants/main.php');
-                include_once(__DIR__ . '/../promos/apprenants/create.php');
-                include_once(__DIR__ . '/../promos/apprenants/edit.php');
-                ?>
+                <div id="student-section" class="section">
 
 
+                    <!------------------------------------- MAIN OF STUDENTS ------------------------------------->
+
+                    <?php
+                    include_once(__DIR__ . '/../promos/apprenants/main.php');
+                    include_once(__DIR__ . '/../promos/apprenants/create.php');
+                    include_once(__DIR__ . '/../promos/apprenants/edit.php');
+                    ?>
+
+
+                </div>
             </div>
-        </div>
             <!----------------------------------------  DELAY PANEL HEADER CONTENT --------------------------------->
             <div class="tab-pane fade" id="delays-tab-pane" role="tabpanel" aria-labelledby="delays-tab" tabindex="0">
 
@@ -97,6 +98,8 @@
 
                 ?>
             </div>
+        </div>
+        </div>
             <!--------------------------------------- END OF DELAY PANEL CONTENT ----------------------------------------------------->
 
             <script src="<?= HOME_URL ?>assets/js/courses.js"></script>
