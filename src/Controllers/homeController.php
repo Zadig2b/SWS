@@ -5,6 +5,7 @@ namespace src\Controllers;
 
 use src\Services\Reponse;
 use src\Repositories\CoursesRepository;
+use src\Repositories\PromoRepository;
 
 class HomeController
 {
@@ -45,6 +46,13 @@ class HomeController
     $promos = $coursesRepository->getPromos();
     echo json_encode($promos);
   }
+  // In your controller file
+public function fetchSinglePromo($promoId) {
+  $promoRepository = new PromoRepository();
+  $promo = $promoRepository->getPromoById($promoId);
+  echo json_encode($promo);
+}
+
 
   public function registration()
   {
@@ -56,4 +64,6 @@ class HomeController
 
     $this->render("confirmRegistration");
   }
+
+  
 }

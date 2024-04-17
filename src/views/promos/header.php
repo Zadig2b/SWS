@@ -1,7 +1,7 @@
 <div id="all-promos-section">
   
   <div id="spH">
-    <div id="promoHeader">
+    <div id="AllpromoHeader">
       <h2>Toutes les Promotions</h2>
       <p>Tableau des promotions de Simplon</p>
     </div>

@@ -3,11 +3,12 @@
 use src\Controllers\homeController;
 use src\Controllers\UserController;
 use src\Controllers\AttendanceController;
-
+use src\Controllers\PromoController;
 // Instancier les contrôleurs
 $homeController = new homeController();
 $userController = new UserController();
 $attendanceController = new AttendanceController();
+$promoController = new PromoController();
 
 // Récupérer l'URL demandée
 $route = $_SERVER['REDIRECT_URL'];
@@ -77,6 +78,9 @@ switch ($route) {
     case '/fetchUsersForPromo';
         $userController->getUsersForPromo($promoId);
         break;
+        case '/fetchSinglePromo':
+            $promoController->fetchSinglePromo($_GET['promoId']);
+            break;
     default:
         // Afficher une page 404 si l'URL demandée n'existe pas
         http_response_code(404);

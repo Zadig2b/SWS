@@ -11,6 +11,7 @@ const returnBtnDelay = document.getElementById("retour-btn-delay-submit");
 const promoTabBtn = document.getElementById("promo-tab");
 const promoSection = document.getElementById("promo-individual-section");
 const allPromo = document.getElementById("all-promos-section");
+const promoHeader = document.getElementById("promoHeader")
 
 addStudentBtn.addEventListener("click", function () {
   gridStudent.style.display = "none";
