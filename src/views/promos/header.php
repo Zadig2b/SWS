@@ -34,4 +34,3 @@
     </div>
   </div>
 </div>
-  <script src="<?= HOME_URL ?>assets/js/promo.js"></script>

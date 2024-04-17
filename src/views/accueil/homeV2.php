@@ -105,7 +105,7 @@
             <script src="<?= HOME_URL ?>assets/js/courses.js"></script>
             <script src="<?= HOME_URL ?>assets/js/script.js"></script>
             <script src="<?= HOME_URL ?>assets/js/user.js"></script>
-
+            <script src="<?= HOME_URL ?>assets/js/promo.js"></script>
 </body>
 
 </html>

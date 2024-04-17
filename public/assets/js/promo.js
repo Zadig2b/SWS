@@ -1,35 +1,35 @@
 function fetchPromos() {
-    fetch('/fetchPromos')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            console.log(response);
+  fetch("/fetchPromos")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      console.log(response);
 
-            return response.json();
-        })
-        .then(promos => {
-            displayPromos(promos);
-        })
-        .catch(error => {
-            console.error('Error fetching promos:', error);
-        });
+      return response.json();
+    })
+    .then((promos) => {
+      displayPromos(promos);
+    })
+    .catch((error) => {
+      console.error("Error fetching promos:", error);
+    });
 }
-const promoGrid = document.getElementById('promo-grid-content');
+const promoGrid = document.getElementById("promo-grid-content");
 // const promoSection = document.getElementById('promo-individual-section');
 
 function displayPromos(promos) {
-    // Select the promo grid container
+  // Select the promo grid container
 
-    // Clear existing content
-    promoGrid.innerHTML = '';
+  // Clear existing content
+  promoGrid.innerHTML = "";
 
-    // Iterate through the promos and create HTML elements to display them
-    promos.forEach(promo => {
-        const promoRow = document.createElement('div');
-        promoRow.classList.add('row');
-        promoRow.dataset.id = promo.Id_promo;
-        promoRow.innerHTML = `
+  // Iterate through the promos and create HTML elements to display them
+  promos.forEach((promo) => {
+    const promoRow = document.createElement("div");
+    promoRow.classList.add("row");
+    promoRow.dataset.id = promo.Id_promo;
+    promoRow.innerHTML = `
             <div class="col">${promo.nom}</div>
             <div class="col">${promo.début}</div>
             <div class="col">${promo.fin}</div>
@@ -41,43 +41,42 @@ function displayPromos(promos) {
                 <button type="button" data-id="${promo.Id_promo}" id="supprimer-promo-${promo.Id_promo}" class="btn btn-outline-primary supprimer-promo">Supprimer</button>
             </div>
         `;
-        promoGrid.appendChild(promoRow);
-    });
+    promoGrid.appendChild(promoRow);
+  });
 }
 
-promoGrid.addEventListener('click', (event) => {
-    const button = event.target;
-    if (button.classList.contains('voir-promo')) {
-        const promoId = button.dataset.id;
-        // Handle the "Voir" button click for the promo with ID promoId
-        promoSection.style.display = 'block';
-        allPromo.style.display = 'none';
-
-    } else if (button.classList.contains('éditer-promo')) {
-        const promoId = button.dataset.id;
-        // Handle the "Editer" button click for the promo with ID promoId
-    } else if (button.classList.contains('supprimer-promo')) {
-        const promoId = button.dataset.id;
-        // Handle the "Supprimer" button click for the promo with ID promoId
-    }
+promoGrid.addEventListener("click", (event) => {
+  const button = event.target;
+  if (button.classList.contains("voir-promo")) {
+    const promoId = button.dataset.id;
+    // Handle the "Voir" button click for the promo with ID promoId
+    promoSection.style.display = "block";
+    allPromo.style.display = "none";
+  } else if (button.classList.contains("éditer-promo")) {
+    const promoId = button.dataset.id;
+    // Handle the "Editer" button click for the promo with ID promoId
+  } else if (button.classList.contains("supprimer-promo")) {
+    const promoId = button.dataset.id;
+    // Handle the "Supprimer" button click for the promo with ID promoId
+  }
 });
 
 function createPromoIndividualSection(promos) {
-    // Select the container where the promo individual sections will be appended
-    const container = document.getElementById('promo-individual-container');
+  // Select the container where the promo individual sections will be appended
+  const container = document.getElementById("promo-individual-container");
 
-    // Clear existing content
-    container.innerHTML = '';
+  // Clear existing content
+  container.innerHTML = "";
 
-    // Iterate through each promo to create individual sections
-    promos.forEach(promo => {
-        // Create a new promo individual section
-        const promoSection = document.createElement('div');
-        promoSection.classList.add('promo-individual-section');
-        promoSection.dataset.id = promo.Id_promo;
+  // Iterate through each promo to create individual sections
+  promos.forEach((promo) => {
+    // Create a new promo individual section
+    const promoSection = document.createElement("div");
+    promoSection.classList.add("promo-individual-section");
+    promoSection.dataset.id = promo.Id_promo;
 
-        // Set the HTML content for the promo individual section
-        promoSection.innerHTML = `
+    // Set the HTML content for the promo individual section
+    promoSection.innerHTML = `
         <div id="spH">
         <div id="promoHeader">
           <h2>Promotion DWWM3</h2>
@@ -286,8 +285,7 @@ function createPromoIndividualSection(promos) {
      </div>
         `;
 
-        // Append the promo individual section to the container
-        container.appendChild(promoSection);
-    });
+    // Append the promo individual section to the container
+    container.appendChild(promoSection);
+  });
 }
-
