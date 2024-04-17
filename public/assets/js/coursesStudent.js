@@ -70,16 +70,16 @@ function displayCourses(courses) {
         statusButton.dataset.courseId = course.Id_cours;
 
 
-
+        if (!course.code) {
+            statusButton.classList.add('btn-secondary');
+            statusButton.textContent = 'en attente du code';
+        } else {
+            const isSigned = /* Add logic to check if the student has signed */;
+            statusButton.classList.add(isSigned ? 'btn-secondary' : 'btn-primary');
+            statusButton.textContent = isSigned ? 'Signature recueillie' : 'Valider Présence';
+        }
         // Set different button text and styles based on signature status
-            if (!course.code) {
-                statusButton.classList.add('btn-primary');
-                statusButton.textContent = 'Valider Présence';
-            } else {
-                const allSigned = /* Add logic to check if all students have signed */;
-                statusButton.classList.add(allSigned ? 'btn-success' : 'btn-warning');
-                statusButton.textContent = allSigned ? 'Signature recueillies' : 'Signatures en cours';
-            }
+        
 
         
 

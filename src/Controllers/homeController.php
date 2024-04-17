@@ -35,7 +35,7 @@ class HomeController
   public function fetchCourse()
   {
     $coursesRepository = new CoursesRepository();
-    $courses = $coursesRepository->getCourses();
+    $courses = $coursesRepository->getCoursesToday();
     echo json_encode($courses);
   }
 

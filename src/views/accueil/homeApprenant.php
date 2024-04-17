@@ -36,6 +36,19 @@
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Accueil</button>
       </li>
     </ul>
+    <?php
+    if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
+      if ($_SESSION['user_role'] == 1) {
+          include_once('accueilFormateur.php');
+      } elseif ($_SESSION['user_role'] == 2) {
+          include_once('accueilApprenant.php');
+      }
+  } else {
+      include_once(__DIR__ . '/../auth/login.php');
+  }?>
+
+<script src="<?= HOME_URL ?>assets/js/courses.js"></script>
+
   </body>
 
   </html>
