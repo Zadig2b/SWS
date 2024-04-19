@@ -30,7 +30,6 @@ class HomeController
         $this->render("accueil.homeApprenant");
       }
     }
-    // $this->loginView();
   }
 
   public function fetchCourse()
@@ -46,8 +45,8 @@ class HomeController
     $promos = $coursesRepository->getPromos();
     echo json_encode($promos);
   }
-  // In your controller file
-public function fetchSinglePromo($promoId) {
+
+  public function fetchSinglePromo($promoId) {
   $promoRepository = new PromoRepository();
   $promo = $promoRepository->getPromoById($promoId);
   echo json_encode($promo);

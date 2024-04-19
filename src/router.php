@@ -43,7 +43,6 @@ switch ($route) {
         if ($method === 'POST') {
             $userController->confirmregistration();
         } else {
-            // Afficher le formulaire de connexion
             $userController->confirmView();
         }
 
@@ -82,7 +81,6 @@ switch ($route) {
             $promoController->fetchSinglePromo($_GET['promoId']);
             break;
     default:
-        // Afficher une page 404 si l'URL demandée n'existe pas
         http_response_code(404);
         echo '404 - Page not found';
         break;

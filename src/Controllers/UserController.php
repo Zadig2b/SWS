@@ -15,21 +15,21 @@ class UserController
 
     public function createUserFromInput()
     {
-        // Retrieve data from the request
+        //Récupérer les données de la requête
         $data = json_decode(file_get_contents('php://input'));
 
-        // Check if data is not null
+        //Vérifiez si les données ne sont pas nulles
         if ($data) {
-            // Extract data fields and apply htmlspecialchars
+            //Extraire les champs de données et appliquer htmlspecialchars
             $nom = htmlspecialchars($data->nom);
             $prenom = htmlspecialchars($data->prenom);
             $email = htmlspecialchars($data->email);
 
-            // Initialize the database
+            //Initialiser la base de données
             $database = new Database();
             $db = $database->getDB();
 
-            // Create a new User instance
+            //Créer une nouvelle instance d'utilisateur
             $user = new User();
             $user->setNom($nom);
             $user->setPrénom($prenom);
@@ -38,37 +38,37 @@ class UserController
             // Initialize UserRepository
             $userRepository = new UserRepository($db);
 
-            // Call the method to create the user
+            //Appeler la méthode pour créer l'utilisateur
             $userId = $userRepository->formateurCreateUser($user);
 
-            // Check if user creation was successful
+            //Vérifiez si la création de l'utilisateur a réussi
             if ($userId) {
-                // Generate token from user ID
+                //Générer un jeton à partir de l'ID utilisateur
                 $token = password_hash($userId, PASSWORD_DEFAULT);
 
-                // Initialize UserRepository
+                //Initialiser le référentiel utilisateur
                 $userRepository = new UserRepository($db);
 
-                // Update the user with the generated token
+                //Mettre à jour l'utilisateur avec le jeton généré
                 $userRepository->updateUserToken($userId, $token);
-                // Include token in the email link
+                //Inclure le jeton dans le lien de l'e-mail
                 $confirmationLink = "http://sws/cregistration?token=" . urlencode($token);
 
-                // Send email to the designated email
+                //Envoyer un e-mail à l'adresse e-mail désignée
                 $to = $email;
                 $subject = 'Confirmation d\inscription à la plateforme SWS';
                 $message = 'Bonjour ' . $prenom . ', 
                 un formateur a initié une création de compte vous concernant. 
                 
                 Pour clôturer votre inscription et choisir votre mot de passe, il vous suffit de cliquer sur le lien suivant: '
-                
-                . $confirmationLink;
+
+                    . $confirmationLink;
                 $headers = 'From: your_email@example.com';
 
-                // Send email
+                //Envoyer un e-mail
                 $mailSent = mail($to, $subject, $message, $headers);
 
-                // Check if email was sent successfully
+                //Vérifiez si l'e-mail a été envoyé avec succès                
                 if ($mailSent) {
                     echo "User created successfully. Confirmation email sent.";
                 } else {
@@ -87,14 +87,11 @@ class UserController
 
     public function confirmView()
     {
-        // Check if the token is present in the URL
         if (isset($_GET['token'])) {
             $token = $_GET['token'];
-            // header("Location:cregistration");
-            // Process the token
+
             $this->processToken($token);
         } else {
-            // Token not found in the URL, handle the case accordingly
             $this->render("includes.header");
 
             $this->render("auth.login");
@@ -104,53 +101,64 @@ class UserController
         $userName = isset($_SESSION['user_nom']) ? $_SESSION['user_nom'] : '';
         $userSurname = isset($_SESSION['user_prénom']) ? $_SESSION['user_prénom'] : '';
 
-        // Pass data to the view
+        //Transmettre les données à la vue
         $data = [
             'userName' => $userName,
             'userSurname' => $userSurname
         ];
 
-        // Render the registration form view with data
+        //Rendre la vue du formulaire d'inscription avec les données
         $this->render("confirmRegistration", $data);
     }
 
 
     public function confirmRegistration()
     {
-        // Get the request body from JSON
         $request = file_get_contents('php://input');
         $requestData = json_decode($request, true);
     
-        // Log the request data for debugging
-        error_log('Request data: ' . print_r($requestData, true));
     
-        // Check if the password is present in the request data
-        if(isset($requestData['password'])) {
-            // Get the password from the request data
+        //Enregistrez les données de la requête pour le débogage
+
+        error_log('Request data: ' . print_r($requestData, true));
+
+        if (isset($requestData['password'])) {
             $password = $requestData['password'];
     
-            // Log the password for debugging
+    
+            //Enregistrez le mot de passe pour le débogage
+
             error_log('Password: ' . $password);
     
-            // Hash the password
+    
+            //Hachez le mot de passe
+
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
-            // Log the hashed password for debugging
+    
+            //Enregistrer le mot de passe haché pour le débogage
+
             error_log('Hashed password: ' . $hashedPassword);
     
-            // Get user ID from session
+    
+
+            //Obtenir l'ID utilisateur de la session
             $userId = $_SESSION['user_id'];
     
-            // Log the user ID for debugging
+    
+
+            //Enregistrez l'ID utilisateur pour le débogage
             error_log('User ID: ' . $userId);
     
-            // Update the user's profile in the database with hashed password and set actif to 1
+    
+
+            //Mettre à jour le profil de l'utilisateur dans la base de données avec le mot de passe haché et définir actif sur 1.
             $database = new Database();
             $db = $database->getDB();
             // Initialize UserRepository
             $userRepository = new UserRepository($db);
             $userRepository->updateUserAfterRegistration($userId, $hashedPassword);
-            $user= $userRepository->getUserById($userId);
+            $user = $userRepository->getUserById($userId);
             $_SESSION['connected'] = true;
             $_SESSION['user_id'] = $user->getId();
             $_SESSION['user_nom'] = $user->getNom();
@@ -159,41 +167,42 @@ class UserController
             $_SESSION['user_role'] = $user->getRole();
             $_SESSION['user_actif'] = $user->getActif();
             echo json_encode("Login successful.");
-            
         } else {
-            // Handle case where password is not present in the request data
-            // For example, display an error message or redirect the user
+            //Gérer le cas où le mot de passe n'est pas présent dans les données de la demande
+            //Par exemple, afficher un message d'erreur ou rediriger l'utilisateur
             error_log('Password not provided in the request.');
             echo "Password not provided in the request.";
         }
-        
     }
-    
+
 
     public function login()
     {
-        // Get the request body from JSON
         $request = file_get_contents('php://input');
         $requestData = json_decode($request, true);
     
+    
+        // Log the request data for debugging
+
         // Log the request data for debugging
         error_log('Login Request data: ' . print_r($requestData, true));
-    
-        // Check if email and password are present in the request data
-        if(isset($requestData['email']) && isset($requestData['password'])) {
-            // Get the email and password from the request data
+
+        if (isset($requestData['email']) && isset($requestData['password'])) {
             $email = $requestData['email'];
             $password = $requestData['password'];
     
+    
+            // Log the email and password for debugging
+
             // Log the email and password for debugging
             error_log('Email: ' . $email);
             error_log('Password: ' . $password);
-    
+
             $database = new Database();
             $db = $database->getDB();
             $userRepository = new UserRepository($db);
             $user = $userRepository->getUserByEmail($email);
-    
+
             if ($user && password_verify($password, $user->password)) {
                 $_SESSION['connected'] = true;
                 $_SESSION['user_id'] = $user->Id_utilisateur;
@@ -202,21 +211,17 @@ class UserController
                 $_SESSION['user_email'] = $user->email;
                 $_SESSION['user_role'] = $user->Id_role;
                 $_SESSION['user_actif'] = $user->actif;
-                
+
                 echo json_encode("Login successful.");
-
-
             } else {
                 header('Location: /login');
             }
         } else {
-            // Handle case where email or password is not present in the request data
-            // For example, display an error message or redirect the user
             error_log('Email or password not provided in the request.');
             echo "Email or password not provided in the request.";
         }
     }
-    
+
     public function logout()
     {
         session_destroy();
@@ -249,13 +254,14 @@ class UserController
             exit;
         }
     }
-    public function fetchStudents(){
+    public function fetchStudents()
+    {
         try {
             $database = new Database();
             $db = $database->getDB();
             $userRepository = new UserRepository($db);
             $students = $userRepository->getUsers();
-    
+
             // Convert user objects to associative arrays
             $studentData = [];
             foreach ($students as $student) {
@@ -268,7 +274,7 @@ class UserController
                     'actif' => $student->getActif()
                 ];
             }
-    
+
             // Return the array of student data as JSON
             echo json_encode($studentData);
         } catch (Exception $e) {
@@ -279,19 +285,21 @@ class UserController
         }
     }
 
-    public function fetchStudents2(){
+    public function fetchStudents2()
+    {
         try {
             $database = new Database();
             $db = $database->getDB();
             $userRepository = new UserRepository($db);
             $students = $userRepository->getUsers2();
     
+    
+            // Return the array of student data as JSON
+
             // Return the array of student data as JSON
             echo json_encode($students);
         } catch (Exception $e) {
-            // Log the error message
             error_log('Error fetching students: ' . $e->getMessage());
-            // Return an empty array to indicate failure
             return json_encode(['Error fetching students']);
         }
     }
@@ -303,15 +311,10 @@ class UserController
             $userRepository = new UserRepository($db);
             $students = $userRepository->getUsersForPromo($promoId);
 
-            // Return the array of student data as JSON
             echo json_encode($students);
         } catch (Exception $e) {
-            // Log the error message
             error_log('Error fetching students: ' . $e->getMessage());
-            // Return an empty array to indicate failure
             return json_encode(['Error fetching students']);
         }
     }
-    
-     
 }

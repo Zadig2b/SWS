@@ -16,15 +16,9 @@ function fetchPromos() {
     });
 }
 const promoGrid = document.getElementById("promo-grid-content");
-// const promoSection = document.getElementById('promo-individual-section');
-
 function displayPromos(promos) {
-  // Select the promo grid container
-
-  // Clear existing content
   promoGrid.innerHTML = "";
 
-  // Iterate through the promos and create HTML elements to display them
   promos.forEach((promo) => {
     const promoRow = document.createElement("div");
     promoRow.classList.add("row");
@@ -43,57 +37,45 @@ function displayPromos(promos) {
         `;
     promoGrid.appendChild(promoRow);
   });
-  
 }
 
 promoGrid.addEventListener("click", (event) => {
   const button = event.target;
   if (button.classList.contains("voir-promo")) {
     const promoId = button.dataset.id;
-    // promoHeader.innerHTML = `${promo.nom}`
-    // promoSection.dataset.id = promoId;
-
-    // Handle the "Voir" button click for the promo with ID promoId
     promoSection.style.display = "block";
     allPromo.style.display = "none";
     fetchSinglePromo(promoId);
     fetchUsersForPromo(promoId);
-
   } else if (button.classList.contains("éditer-promo")) {
     const promoId = button.dataset.id;
-    // Handle the "Editer" button click for the promo with ID promoId
   } else if (button.classList.contains("supprimer-promo")) {
     const promoId = button.dataset.id;
-    
-    // Handle the "Supprimer" button click for the promo with ID promoId
   }
 });
 
-
-
 function fetchSinglePromo(promoId) {
-    fetch(`/fetchSinglePromo?promoId=${promoId}`)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            console.log(response);
+  fetch(`/fetchSinglePromo?promoId=${promoId}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      console.log(response);
 
-            return response.json();
-        })
-        .then((promo) => {
-            displaySinglePromo(promo);
-        })
-        .catch((error) => {
-            console.error("Error fetching promo:", error);
-        });
+      return response.json();
+    })
+    .then((promo) => {
+      displaySinglePromo(promo);
+    })
+    .catch((error) => {
+      console.error("Error fetching promo:", error);
+    });
 }
 
-
-  function displaySinglePromo(promo) {
-    promoHeader.innerHTML = `
+function displaySinglePromo(promo) {
+  promoHeader.innerHTML = `
     <h2>${promo.nom}</h2>
     <p>Informations</p>
-    `
-    promoSection.dataset.id = promo.Id_promo;
-  }
+    `;
+  promoSection.dataset.id = promo.Id_promo;
+}
