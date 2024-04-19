@@ -141,3 +141,10 @@ flex-direction: row;
 #underline {
     margin-bottom: 10px;
 }
+
+.toast-body {
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}

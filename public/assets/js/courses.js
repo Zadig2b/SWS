@@ -22,22 +22,22 @@ function loadCourses() {
 function displayCourses(courses) {
   const courseSection = document.getElementById("course-section");
 
-  // Clear the current list of courses
+  // Effacer la liste actuelle des cours
   courseSection.innerHTML = "";
 
-  // Loop through the courses and create HTML elements
+  // Parcourir les cours et créez des éléments HTML
   courses.forEach((course) => {
     const subCard = document.createElement("div");
     subCard.classList.add("sub-card");
-    // Create the course card container
+    // Créer le conteneur de cartes de cours
     const courseCard = document.createElement("div");
     courseCard.classList.add("course-card");
 
-    // Create the first line container
+    // Créer le conteneur de première ligne
     const firstLine = document.createElement("div");
     firstLine.classList.add("first-line");
 
-    // Extract hour part from start and end date
+    // Extraire la partie horaire de la date de début et de fin
     const startDate = new Date(course.date_début);
     const endDate = new Date(course.date_fin);
     const startHour = startDate.toLocaleTimeString([], {
@@ -49,9 +49,9 @@ function displayCourses(courses) {
       minute: "2-digit",
     });
 
-    // Create the heading element for promo name and time
+    // Créez l'élément de titre pour le nom et l'heure du cours
     const heading = document.createElement("h2");
-    heading.textContent = `${course.promo_nom} - ${startHour} à ${endHour}`;
+    heading.textContent = `${course.nom} - ${startHour} à ${endHour}`;
 
     // Create the paragraph element for date (without hours)
     const dateParagraph = document.createElement("p");
@@ -61,40 +61,40 @@ function displayCourses(courses) {
       options
     );
 
-    // Append heading and date to the first line container
+    // Ajouter le titre et la date au conteneur de première ligne
     firstLine.appendChild(heading);
     firstLine.appendChild(dateParagraph);
 
-    // Create the paragraph element for number of participants
+    // Créer l'élément de paragraphe pour le nombre de participants
     const participantsParagraph = document.createElement("p");
     participantsParagraph.textContent = `Nombre de participants: ${course.participants}`;
 
-    // Create the button element for signature status
+    // bouton pour le statut de signature
     const statusButton = document.createElement("button");
     statusButton.setAttribute("type", "button");
     statusButton.classList.add("btn");
 
-    // Set the course ID as a data attribute on the button
-    statusButton.dataset.courseId = course.Id_cours;
+//Définit l'ID du cours comme attribut de données sur le bouton    
+statusButton.dataset.courseId = course.Id_cours;
 
-    // Set different button text and styles based on signature status
+    // Définir différents textes et styles de boutons en fonction de l'état de la signature
     if (!course.code) {
       statusButton.classList.add("btn-primary");
       statusButton.textContent = "Valider Présence";
     } else {
-      const allSigned = ""; /* Add logic to check if all students have signed */
+      const allSigned = ""; /* Ajouter une logique pour vérifier si tous les étudiants ont signé*/
       statusButton.classList.add(allSigned ? "btn-success" : "btn-warning");
       statusButton.textContent = allSigned
         ? "Signature recueillies"
         : "Signatures en cours";
     }
 
-    // Append all elements to the course card
+    // Joindre tous les éléments à la fiche de cours
     courseCard.appendChild(firstLine);
     courseCard.appendChild(participantsParagraph);
     courseCard.appendChild(statusButton);
 
-    // Append the course card to the course section
+    // Joindre la fiche de cours à la section cours
     courseSection.appendChild(courseCard);
   });
 }
@@ -104,24 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loadCourses();
 });
 
-function reloadCSS() {
-  // Get all <link> elements with rel="stylesheet"
-  const links = document.querySelectorAll('link[rel="stylesheet"]');
 
-  // Loop through each <link> element
-  links.forEach((link) => {
-    // Get the href attribute value
-    const href = link.getAttribute("href");
-
-    // Add a timestamp query parameter to force the browser to reload the stylesheet
-    const timestamp = new Date().getTime();
-    const newHref = href + "?t=" + timestamp;
-
-    // Set the new href value to trigger the reload
-    link.setAttribute("href", newHref);
-    console.log("reload css called");
-  });
-}
 
 function addCourse() {
   const name = document.getElementById("name").value;

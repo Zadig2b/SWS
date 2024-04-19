@@ -101,11 +101,20 @@
         </div>
         </div>
             <!--------------------------------------- END OF DELAY PANEL CONTENT ----------------------------------------------------->
-
+            <div id="toastContainer" class="toast position-fixed bottom-0 end-0 p-0">
+    <div class="toast-body">
+    <?php if (!empty($error_message)): ?>
+        <script>
+            showToast("<?php echo $error_message; ?>", 'error');
+        </script>
+    <?php endif; ?>
+    </div>
+</div>
             <script src="<?= HOME_URL ?>assets/js/courses.js"></script>
             <script src="<?= HOME_URL ?>assets/js/script.js"></script>
             <script src="<?= HOME_URL ?>assets/js/user.js"></script>
             <script src="<?= HOME_URL ?>assets/js/promo.js"></script>
+
 </body>
 
 </html>

@@ -45,7 +45,7 @@ function sendPsw(password) {
         });
 }
 
-function createStudent() {
+function createStudent(promoId) {
     // Get input values
     var nom = document.getElementById('nomInput').value;
     var prenom = document.getElementById('prenomInput').value;
@@ -82,6 +82,7 @@ function createStudent() {
             }
             // Handle success response here
             console.log('Student created successfully.');
+            showToast('étudiant créé avec succès', 'success');
         })
         .catch(error => {
             console.error('Error creating student:', error);

@@ -87,3 +87,27 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchPromos();
 
 });
+
+function showToast(message, type) {
+  const toastContainer = document.getElementById('toastContainer');
+  const toast = new bootstrap.Toast(toastContainer, {
+      autohide: true,
+      delay: 3000 
+  });
+
+  const toastBody = toastContainer.querySelector('.toast-body');
+  toastBody.innerHTML = `<p>${message}</p>`;
+
+  toastContainer.classList.remove('bg-success', 'bg-danger', 'bg-info', 'bg-warning');
+  if (type === 'success') {
+      toastContainer.classList.add('bg-success');
+  } else if (type === 'error') {
+      toastContainer.classList.add('bg-danger');
+  } else if (type === 'info') {
+      toastContainer.classList.add('bg-info');
+  } else if (type === 'warning') {
+      toastContainer.classList.add('bg-warning');
+  }
+
+  toast.show();
+      }
