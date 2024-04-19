@@ -49,22 +49,12 @@ studentTabButton.addEventListener("click", function () {
   }
 });
 
-// fonction pour gérer le header du Nested Tab
-// Get the delays tab button element
 var delaysTabButton = document.getElementById("delays-tab");
-
-// Get the student tab button element
 var studentTabButton = document.getElementById("student-tab");
-
-// Get the student tab pane element
 var header = document.getElementById("spH");
 var studentSection = document.getElementById("grid-student");
-
-// Store the original  content
 var originalHeaderContent = header.innerHTML;
 var originalStudentSectionContent = studentSection.innerHTML;
-
-// Define the delays header HTML content
 var delaysHeaderHTML = `
       <div id="spH">
           <div id="promoHeader">
@@ -77,24 +67,23 @@ var delaysHeaderHTML = `
       </div>
   `;
 
-// Attach event listener to the delays tab button
 delaysTabButton.addEventListener("click", function () {
-  // Replace the content of the student tab pane with the delays header HTML
   header.innerHTML = delaysHeaderHTML;
 });
 
-// Attach event listener to the student tab button
 studentTabButton.addEventListener("click", function () {
-  // Reset the header content to the original state
-  header.innerHTML = originalHeaderContent;
-  studentSection.innerHTML = originalStudentSectionContent;
+//Réinitialise le contenu de l'en-tête à son état d'origine 
+ header.innerHTML = originalHeaderContent;
+studentSection.innerHTML = originalStudentSectionContent;
 });
 
 promoTabBtn.addEventListener("click", function () {
-  fetchStudents();
-  fetchPromos();
+  promoSection.style.display = 'none';
+  allPromo.style.display = 'block';
 });
 
 document.addEventListener("DOMContentLoaded", function () {
   promoSection.style.display = "none";
+  fetchPromos();
+
 });

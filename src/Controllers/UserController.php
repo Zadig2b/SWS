@@ -57,7 +57,12 @@ class UserController
                 // Send email to the designated email
                 $to = $email;
                 $subject = 'Confirmation d\inscription à la plateforme SWS';
-                $message = 'Bonjour ' . $nom . ', un formateur a initié une création de compte vous concernant. Pour clôturer votre inscription et choisir votre mot de passe, il vous suffit de cliquer sur le lien suivant: ' . $confirmationLink;
+                $message = 'Bonjour ' . $prenom . ', 
+                un formateur a initié une création de compte vous concernant. 
+                
+                Pour clôturer votre inscription et choisir votre mot de passe, il vous suffit de cliquer sur le lien suivant: '
+                
+                . $confirmationLink;
                 $headers = 'From: your_email@example.com';
 
                 // Send email
@@ -307,5 +312,6 @@ class UserController
             return json_encode(['Error fetching students']);
         }
     }
+    
      
 }

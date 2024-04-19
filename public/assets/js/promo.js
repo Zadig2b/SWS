@@ -57,6 +57,8 @@ promoGrid.addEventListener("click", (event) => {
     promoSection.style.display = "block";
     allPromo.style.display = "none";
     fetchSinglePromo(promoId);
+    fetchUsersForPromo(promoId);
+
   } else if (button.classList.contains("éditer-promo")) {
     const promoId = button.dataset.id;
     // Handle the "Editer" button click for the promo with ID promoId
@@ -89,6 +91,9 @@ function fetchSinglePromo(promoId) {
 
 
   function displaySinglePromo(promo) {
-    promoHeader.innerHTML = `${promo.nom}`
+    promoHeader.innerHTML = `
+    <h2>${promo.nom}</h2>
+    <p>Informations</p>
+    `
     promoSection.dataset.id = promo.Id_promo;
   }

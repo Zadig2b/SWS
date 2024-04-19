@@ -76,7 +76,7 @@ switch ($route) {
         $homeController->fetchPromo();
         break;
     case '/fetchUsersForPromo';
-        $userController->getUsersForPromo($promoId);
+        $userController->getUsersForPromo($_GET['promoId']);
         break;
         case '/fetchSinglePromo':
             $promoController->fetchSinglePromo($_GET['promoId']);

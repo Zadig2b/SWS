@@ -43,16 +43,7 @@ function displayStudents(students) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const voirPromoButtons = document.querySelectorAll('.voir-promo');
 
-    voirPromoButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const promoId = this.getAttribute('data-id');
-            fetchUsersForPromo(promoId);
-        });
-    });
-});
 
 function fetchUsersForPromo(promoId) {
     fetch(`/fetchUsersForPromo?promoId=${promoId}`, { 
@@ -65,13 +56,40 @@ function fetchUsersForPromo(promoId) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+        console.log(response);
+
         return response.json();
     })
     .then(data => {
         // Process the data returned from the server
         console.log(data);
+        displayUsersForPromo(data);
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
 }
+function displayUsersForPromo(users) {
+    const userGrid = document.getElementById('student-grid');
+    userGrid.innerHTML = '';
+
+    users.forEach(user => {
+        const userRow = document.createElement('div');
+        userRow.classList.add('row');
+        userRow.dataset.idUtilisateur = user.Id_utilisateur;
+
+        userRow.innerHTML = `
+            <div class="col">${user.nom}</div>
+            <div class="col">${user.prénom}</div>
+            <div class="col">${user.email}</div>
+            <div class="col">${user.actif ? 'Yes' : 'No'}</div>
+            <div class="col">${user.Id_role}</div>
+            <div class="col">
+                <button type="button" class="btn btn-outline-dark">Edit</button>
+            </div>
+        `;
+        userGrid.appendChild(userRow);
+    });
+}
+
+
