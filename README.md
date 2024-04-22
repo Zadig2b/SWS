@@ -29,3 +29,12 @@ Créer un virtual host qui pointe vers le dossier public du projet.
 Renommer le fichier config-exemple.php en config.php et mettre à jour les variables avec vos paramètres
 
 
+# Comptes pré-créés pour test:
+
+# Apprenant
+email: john.doe@gmail.com
+mot de passe: fr
+
+# Formateur
+email: clark.kent@gmail.com
+mot de passe: fr
