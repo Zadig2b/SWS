@@ -169,7 +169,6 @@ class UserController
             echo json_encode("Login successful.");
         } else {
             //Gérer le cas où le mot de passe n'est pas présent dans les données de la demande
-            //Par exemple, afficher un message d'erreur ou rediriger l'utilisateur
             error_log('Password not provided in the request.');
             echo "Password not provided in the request.";
         }
