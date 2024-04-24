@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 22 avr. 2024 à 08:45
+-- Généré le : lun. 22 avr. 2024 à 09:29
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`Id_utilisateur`, `nom`, `prénom`, `email`, `password`, `actif`, `Id_role`, `Id_promo`, `token`) VALUES
-(66, 'Dugeay', 'Romain', 'romain.dugeay@gmail.com', '$2y$10$ZHyV1UD..qWDVEl7g/2jiuxZRkeKp9unOjNozwJ3vhB1.bq7ofN7a', 1, 2, 1, '$2y$10$REDcwLzu7KUk7B2zcdgxBevbd2iuv4NNf/6YoSeUtXrqHauSJXqRy'),
+(66, 'Kent', 'Clark', 'clark.kent@gmail.com', '$2y$10$ZHyV1UD..qWDVEl7g/2jiuxZRkeKp9unOjNozwJ3vhB1.bq7ofN7a', 1, 2, 1, '$2y$10$REDcwLzu7KUk7B2zcdgxBevbd2iuv4NNf/6YoSeUtXrqHauSJXqRy'),
 (48, 'Taylor', 'Michael', 'michael.taylor@example.com', NULL, 1, 2, 1, NULL),
 (49, 'Wilson', 'Sarah', 'sarah.wilson@example.com', NULL, 1, 2, 1, NULL),
 (47, 'Brown', 'Emily', 'emily.brown@example.com', NULL, 1, 2, 1, NULL),
@@ -258,7 +258,7 @@ INSERT INTO `utilisateur` (`Id_utilisateur`, `nom`, `prénom`, `email`, `passwor
 (56, 'Dupont', 'Pierre', 'pierre.dupont@example.com', NULL, 1, 2, 2, NULL),
 (57, 'Martin', 'Sophie', 'sophie.martin@example.com', NULL, 1, 2, 2, NULL),
 (58, 'Dubois', 'Julie', 'julie.dubois@example.com', NULL, 1, 2, 2, NULL),
-(33, 'Dugeay', 'Romain', 'meije.dev@gmail.com', '$2y$10$fDx0vJSK/XOjaDKGnjRs7uXhaxbIcECC2nTQFJxW9os21JwUjnWBe', 1, 1, 1, '$2y$10$2ZwzuZ2tZYQYJDyY1M2rEuVQ9ZIHaQU92b1LufM7ZDI3vA/OqGFSW'),
+(33, 'Doe', 'John', 'john.doe@gmail.com', '$2y$10$fDx0vJSK/XOjaDKGnjRs7uXhaxbIcECC2nTQFJxW9os21JwUjnWBe', 1, 1, 1, '$2y$10$2ZwzuZ2tZYQYJDyY1M2rEuVQ9ZIHaQU92b1LufM7ZDI3vA/OqGFSW'),
 (50, 'Anderson', 'Emma', 'emma.anderson@example.com', NULL, 1, 2, 1, NULL),
 (51, 'Thomas', 'David', 'david.thomas@example.com', NULL, 1, 2, 1, NULL),
 (52, 'Walker', 'Olivia', 'olivia.walker@example.com', NULL, 1, 2, 1, NULL),

@@ -23,6 +23,8 @@ Communication avec la Base de donnée:
 Clonez ce dépôt sur votre machine locale.
 Assurez-vous que vous avez Wamp installé.
 Créer un virtual host qui pointe vers le dossier public du projet.
+Créer une base de donnée dans phpMyAdmin.
+Importer le fichier de migration fourni via une requête sql dans la base de donnée qui vient d'être créee.
 
 # Configuration des variables d'environnement:
 

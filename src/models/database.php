@@ -49,7 +49,7 @@ final class Database
         $i = 0;
         $migrationExistante = TRUE;
         while ($migrationExistante === TRUE) {
-          $migration = __DIR__ . "/../Migrations/migration$i.sql";
+          $migration = __DIR__ . "/../migrations/migration$i.sql";
           if (file_exists($migration)) {
             $sql = file_get_contents($migration);
             $this->DB->query($sql);

@@ -30,9 +30,12 @@ function displayPromos(promos) {
             <div class="col">${promo.places_max}</div>
     
             <div class="col">
-                <button type="button" data-id="${promo.Id_promo}" id="voir-promo-${promo.Id_promo}" class="btn btn-outline-primary voir-promo">Voir</button>
-                <button type="button" data-id="${promo.Id_promo}" id="éditer-promo-${promo.Id_promo}" class="btn btn-outline-primary éditer-promo">Editer</button>
-                <button type="button" data-id="${promo.Id_promo}" id="supprimer-promo-${promo.Id_promo}" class="btn btn-outline-primary supprimer-promo">Supprimer</button>
+                <button type="button" data-id="${promo.Id_promo}" id="voir-promo-${promo.Id_promo}" 
+                class="btn btn-outline-primary voir-promo">Voir</button>
+                <button type="button" data-id="${promo.Id_promo}" id="éditer-promo-${promo.Id_promo}" 
+                class="btn btn-outline-primary éditer-promo">Editer</button>
+                <button type="button" data-id="${promo.Id_promo}" id="supprimer-promo-${promo.Id_promo}" 
+                class="btn btn-outline-primary supprimer-promo">Supprimer</button>
             </div>
         `;
     promoGrid.appendChild(promoRow);
