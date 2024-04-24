@@ -33,10 +33,11 @@ Renommer le fichier config-exemple.php en config.php et mettre à jour les varia
 
 # Comptes pré-créés pour test:
 
-# Apprenant
+# Formateur
+
 email: john.doe@gmail.com
 mot de passe: fr
 
-# Formateur
+# Apprenant
 email: clark.kent@gmail.com
 mot de passe: fr
